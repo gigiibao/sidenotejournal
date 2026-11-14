@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>side note</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="description" content="side note — a personal space for high school students to share thoughts, experiences and conversations about growing up.">
+<meta name="theme-color" content="#FCFBF7">
+<meta property="og:type" content="website">
+<meta property="og:title" content="side note">
+<meta property="og:description" content="A personal space for high school students to share thoughts, experiences and conversations about growing up.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;800&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FCFBF7;--ink:#353535;--soft:#6a6a6a;--pink:#F1DDD3;--blue:#E5E9F2;--green:#E1EBD7;--accent:#6F8AB0;--yellow:#F7EBAE;--card-ink:#353535;--paper:#FFFEFB;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#262626;--ink:#FCFBF7;--soft:#bdbdbd;--paper:#FFFEFB}}
+:root[data-theme="dark"]{--bg:#262626;--ink:#FCFBF7;--soft:#bdbdbd;--paper:#FFFEFB}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.05rem/1.7 Nunito,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3,.logo,.nav a{font-family:Fredoka,Nunito,system-ui,sans-serif;font-weight:600;line-height:1.1;margin:0}
+a{color:inherit}
+.wrap{max-width:1050px;margin:0 auto;padding:0 1.4rem}
+.doodle{width:70px;height:70px;filter:url(#wobble);overflow:visible;position:absolute;pointer-events:none}
+.doodle *{stroke:var(--card-ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.float{animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-12px) rotate(6deg)}}
+/* nav */
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);padding-top:env(safe-area-inset-top,0px)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 1.4rem;max-width:1050px;margin:0 auto;flex-wrap:wrap}
+.logo{text-decoration:none;font-size:1.05rem;max-width:15rem}
+.nav{display:flex;gap:.4rem;flex-wrap:wrap}
+.nav a{text-decoration:none;padding:.35rem .9rem;border-radius:99px;font-size:.95rem;border:2px solid transparent;transition:.2s}
+.nav a:hover{background:var(--green);color:var(--card-ink);border-color:var(--card-ink);transform:rotate(-3deg)}
+/* hero */
+.hero{position:relative;padding:4rem 0 3rem;text-align:center}
+.hero h1{font-size:clamp(2.4rem,8vw,5.2rem);letter-spacing:-.01em;text-transform:none}
+.hero h1 span{display:inline-block;background:var(--pink);color:var(--card-ink);padding:0 .25em;border-radius:.4em .6em .35em .55em;transform:rotate(-2deg)}
+.hero p{max-width:40rem;margin:1.5rem auto 0;color:var(--soft)}
+.hero .alone{font-family:Fredoka,sans-serif;font-size:1.7rem;color:var(--ink);margin-top:1.2rem;position:relative;display:inline-block}
+.hero .alone:after{content:"";position:absolute;left:-4%;right:-4%;bottom:.1em;height:.5em;background:var(--blue);border-radius:99px;z-index:-1;transform:rotate(-1.5deg)}
+.sig{font-family:Fredoka,sans-serif;margin-top:1rem}
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin:2.2rem 0 1rem}
+.chip{padding:.35rem 1rem;border-radius:99px;border:2px solid var(--card-ink);color:var(--card-ink);font-weight:700;font-size:.9rem;transition:.2s}
+.chip:hover{transform:translateY(-3px) rotate(2deg)}
+.c0{background:var(--pink)}.c1{background:var(--blue)}.c2{background:var(--green)}.c3{background:var(--paper);color:var(--ink);border-color:var(--ink)}
+/* posts */
+section{position:relative;padding:3.5rem 0}
+.sec-title{font-size:clamp(1.8rem,5vw,2.6rem);margin-bottom:2rem;position:relative;display:inline-block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.6rem}
+.card{position:relative;display:block;text-decoration:none;color:var(--card-ink);border:2.5px solid var(--card-ink);padding:1.6rem 1.5rem 1.4rem;min-height:230px;border-radius:28px 36px 24px 40px;transition:transform .25s,box-shadow .25s;overflow:hidden}
+.card:nth-child(even){border-radius:38px 24px 40px 26px}
+.card:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:6px 8px 0 var(--card-ink)}
+.card h3{font-size:1.4rem;margin:.6rem 0 .5rem;max-width:85%}
+.card small{font-weight:700;opacity:.75;text-transform:uppercase;letter-spacing:.08em;font-size:.72rem}
+.card p{margin:0;font-size:.95rem}
+.card .doodle{right:.8rem;top:.8rem;width:58px;height:58px;transition:transform .3s}
+.card:hover .doodle{transform:rotate(14deg) scale(1.12)}
+.card.pink{background:var(--pink)}.card.blue{background:var(--blue)}.card.green{background:var(--green)}.card.plain{background:var(--paper);color:var(--ink);border-color:var(--ink)}
+.card.plain .doodle *{stroke:var(--ink)}
+/* story */
+.story{background:var(--blue);color:var(--card-ink);border-radius:60px 80px 50px 90px / 50px 60px 70px 60px;padding:3.5rem 2rem;margin:2rem 0;position:relative}
+.story .in{max-width:34rem;margin:0 auto;text-align:center}
+.story p{margin:1rem 0 1.5rem}
+.btn{display:inline-block;background:var(--card-ink);color:#fff;text-decoration:none;padding:.7rem 1.4rem;border-radius:99px;font-family:Fredoka,sans-serif;transition:.2s}
+.btn:hover{background:var(--pink);color:var(--card-ink);transform:rotate(-3deg) scale(1.05)}
+footer{text-align:center;padding:3rem 1.4rem 4rem;color:var(--soft)}
+/* article reading style (use on blog post pages) */
+.prose{max-width:38rem;margin:0 auto;font-size:1.15rem;line-height:1.85}
+:root{--f:"Helvetica Neue",Helvetica,"Inter Tight",Arial,sans-serif}
+body,h1,h2,h3,.logo,.nav a,.hero .alone,.sig,.btn{font-family:var(--f)}
+h1,h2,h3,.logo{font-weight:800;letter-spacing:-.045em;text-transform:lowercase}
+.hero h1{font-size:clamp(2.8rem,11vw,7rem);line-height:.95}
+.hero h1 span{background:var(--pink);color:var(--card-ink);padding:0 .12em;border-radius:.25em .4em .2em .35em;transform:rotate(-2deg)}
+.hero .alone{font-weight:800;letter-spacing:-.03em}
+.nav a,.btn,.sig{font-weight:700;letter-spacing:-.01em}
+.card h3{letter-spacing:-.04em}
+body:before{content:"";position:fixed;inset:0;z-index:20;pointer-events:none;opacity:.09;mix-blend-mode:multiply;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.card.plain{color:var(--card-ink);border-color:var(--card-ink)}
+.card.plain .doodle *{stroke:var(--card-ink)}
+.story{background:var(--card-ink);color:#FFF3DE}
+.story .doodle{background:#FCFBF7;border-radius:48% 52% 46% 54%;padding:12px;box-sizing:content-box}
+.story .doodle *{stroke:#353535}
+.story .btn{background:var(--pink);color:var(--card-ink)}
+.story .btn:hover{background:#FFF3DE}
+.hero .alone:after{background:var(--green)}
+.c3{color:var(--card-ink);border-color:var(--card-ink)}
+body:before{opacity:.05}
+.hero{padding-top:2rem}
+.hero .kid{--w:clamp(230px,42vw,400px);width:var(--w);height:var(--w);left:50%;margin-left:calc(var(--w)/-2);top:0;z-index:0}
+.hero .kid *{stroke-width:1.2}
+.hero h1{position:relative;z-index:1;margin-top:.5rem;font-size:clamp(3rem,13vw,8.5rem);line-height:.9}
+.hero p,.hero .alone,.hero .sig,.hero .chips{position:relative;z-index:1}
+#dog{--f:1;position:fixed;left:0;top:0;z-index:99999;width:64px;margin:-15px 0 0 -24px;pointer-events:none;opacity:0;transition:opacity .2s;will-change:transform}
+#dog.on{opacity:1}#dog.flip{--f:-1}
+#dog img{display:block;width:100%;transform-origin:37% 30%;transform:scaleX(var(--f));transition:transform .18s}
+#dog.walk img{animation:bob .32s ease-in-out infinite}
+#dog.text img{transform:scaleX(var(--f)) rotate(14deg)}
+#dog.link img{animation:hop .5s ease-in-out infinite}
+#dog.down img{animation:none;transform:scaleX(var(--f)) scale(1.18,.78)}
+#dog.sleep img{animation:zz 2.4s ease-in-out infinite}
+#dog:after{content:"z z";position:absolute;left:36px;top:-20px;font:800 13px var(--f);color:var(--ink);opacity:0;transition:opacity .3s}
+#dog.sleep:after{opacity:.7;animation:zf 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:scaleX(var(--f)) translateY(-3px) rotate(4deg)}}
+@keyframes hop{50%{transform:scaleX(var(--f)) translateY(-10px) rotate(-10deg) scale(1.08)}}
+@keyframes zz{50%{transform:scaleX(var(--f)) scale(1.1,.68)}0%,100%{transform:scaleX(var(--f)) scale(1.1,.72)}}
+@keyframes zf{50%{transform:translateY(-6px)}}
+html.dogcursor,html.dogcursor *{cursor:none!important}
+@media (prefers-reduced-motion:reduce){#dog img,#dog:after{animation:none!important}}
+[hidden]{display:none!important}
+.page:not([data-page=home]){min-height:60vh}
+.nav a[aria-current]{background:var(--green);border-color:var(--card-ink)}
+.filters{display:flex;flex-wrap:wrap;gap:.6rem;margin:-.8rem 0 1.8rem}
+button.chip{font:inherit;font-weight:700;font-size:.9rem;line-height:1.7;cursor:pointer}
+.filters .chip[aria-pressed=true]{background:var(--card-ink);color:#FCFBF7}
+.card{min-height:200px}
+button.chip{font:inherit;font-weight:700;font-size:.9rem;line-height:1.7;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.filters{display:flex;flex-wrap:wrap;gap:.6rem;margin:-.6rem 0 2rem}
+.card p{font-size:.9rem;line-height:1.5;margin-top:.7rem;opacity:.85}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.6rem}
+.card.go{display:flex;gap:1.3rem;align-items:flex-start;min-height:0}
+.card.go .doodle{position:static;flex:none;width:84px;height:84px}
+.card.go h3{margin:0 0 .4rem;max-width:none}
+.card.go p{margin:0;opacity:.85}
+.arw{display:inline-grid;place-items:center;width:44px;height:44px;margin-top:1rem;border:2px solid var(--card-ink);border-radius:50%;font-size:1.2rem;transition:.2s}
+.card.go:hover .arw{background:var(--card-ink);color:#FCFBF7;transform:translateX(4px)}
+.lang{display:flex;gap:.3rem}
+.lang .chip{padding:.1rem .7rem;font-size:.8rem}
+html[lang=zh] h1,html[lang=zh] h2,html[lang=zh] h3,html[lang=zh] .logo,html[lang=zh] .alone,html[lang=zh] .nav a{letter-spacing:0;text-transform:none}
+.os{padding-bottom:3rem}
+.os p{max-width:38rem}
+.os h2{font-size:clamp(2rem,5vw,3.2rem);margin-bottom:1.2rem}
+.os-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center;padding:4rem 0 3rem}
+.os-hero h1{font-size:clamp(3.2rem,10vw,7rem);line-height:.95}
+.os h1 span{display:inline-block;background:var(--pink);color:var(--card-ink);padding:0 .2em;border-radius:.4em .6em .35em .55em;transform:rotate(-2deg)}
+.hand{font-family:Gaegu,"Bradley Hand",cursive;font-weight:700;font-size:clamp(1.9rem,4.4vw,2.7rem);line-height:1.1}
+.os-hero .hand{margin:.9rem 0 1.2rem;text-decoration:underline wavy var(--accent);text-decoration-thickness:2px;text-underline-offset:.25em}
+.comp{position:relative;height:340px}
+.blob{position:absolute;border:2.5px solid var(--card-ink)}
+.b1{width:62%;height:62%;left:0;top:6%;background:var(--pink);border-radius:55% 45% 60% 40%/50% 55% 45% 50%}
+.b2{width:50%;height:50%;right:0;top:0;background:var(--blue);border-radius:42% 58% 46% 54%/55% 45% 55% 45%}
+.b3{width:48%;height:44%;right:6%;bottom:0;background:var(--green);border-radius:60% 40% 52% 48%/45% 58% 42% 55%}
+.note{position:absolute;left:12%;bottom:10%;width:60%;background:var(--paper);border:2.5px solid var(--card-ink);border-radius:6px 14px 8px 12px;padding:1.2rem 1rem;transform:rotate(-4deg);font:700 1.7rem/1.1 Gaegu,cursive;color:var(--card-ink);box-shadow:5px 6px 0 var(--card-ink)}
+.note:before{content:"";position:absolute;top:-14px;left:50%;width:70px;height:24px;margin-left:-35px;background:var(--yellow);opacity:.9;transform:rotate(3deg)}
+.os-row{display:grid;grid-template-columns:1.1fr .9fr;gap:3.5rem;align-items:start;padding:3.5rem 0}
+.mk{background:linear-gradient(transparent 62%,var(--pink) 62%);color:var(--ink)}
+.side{position:sticky;top:5rem}
+.school{display:block;width:100%;height:auto;margin-top:2.4rem}
+.clip{position:relative;display:block;text-decoration:none;background:var(--paper);color:var(--card-ink);border:2.5px solid var(--card-ink);border-radius:6px 16px 8px 14px;padding:2rem 1.7rem 1.6rem;box-shadow:8px 9px 0 var(--pink);transform:rotate(1.5deg);transition:.25s}
+.clip:before{content:"";position:absolute;top:-14px;left:40%;width:84px;height:26px;background:var(--yellow);opacity:.9;transform:rotate(-4deg)}
+.clip:hover{transform:rotate(0) translateY(-4px);box-shadow:11px 12px 0 var(--pink)}
+.clip small{font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:.72rem;border-bottom:2px solid var(--card-ink);padding-bottom:.4rem;display:block}
+.clip h3{font-size:clamp(1.6rem,3.4vw,2.2rem);margin:1.1rem 0 .8rem;letter-spacing:-.04em}
+.clip p{margin:0 0 1.2rem;font-size:.95rem}
+.cta{display:inline-block;background:var(--card-ink);color:#FCFBF7;border-radius:99px;padding:.55rem 1.1rem;font-weight:700}
+.os-box{border-radius:56px 76px 48px 80px/50px 60px 64px 58px;padding:3.5rem clamp(1.4rem,5vw,4rem);margin:2rem 0;color:var(--card-ink)}
+.os-box.green{background:var(--green)}.os-box.pink{background:var(--pink)}
+.os-box h2{color:var(--card-ink)}
+.os-two{display:grid;grid-template-columns:1.2fr .8fr;gap:3rem;align-items:center}
+.os-box.pink .os-two{grid-template-columns:.9fr 1.1fr}
+.svbtn{width:100%;border:2.5px solid var(--card-ink);background:var(--paper);color:var(--card-ink);border-radius:30px 36px 26px 40px;padding:2rem 1.6rem;font:800 1.7rem/1.1 var(--f);letter-spacing:-.035em;text-align:left;cursor:pointer;box-shadow:6px 7px 0 var(--card-ink);transition:.2s}
+.svbtn:hover{transform:translate(-3px,-3px) rotate(-1deg);box-shadow:9px 10px 0 var(--card-ink)}
+.os-real{text-align:center;padding:5rem 0 4rem}
+.os-real p{margin-left:auto;margin-right:auto}
+.os-real .soft{color:var(--soft);margin-top:.8rem}
+.os-real .big{max-width:46rem;font-size:clamp(1.3rem,3vw,1.95rem);line-height:1.4;font-weight:800;letter-spacing:-.03em;margin-top:1.4rem}
+mark{background:linear-gradient(transparent 55%,var(--yellow) 55%);color:inherit}
+.os-note{max-width:40rem;margin:3rem auto 0;text-align:center}
+.os-note h2{font-size:clamp(1.6rem,4vw,2.2rem)}.os-note p{margin:0 auto 1rem}
+.os-note .sign{font-size:2rem;margin:.6rem 0}
+.sub{font-weight:700;text-underline-offset:.25em}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(53,53,53,.55);display:grid;place-items:center;padding:1rem}
+.mpanel{background:var(--bg);color:var(--ink);width:min(960px,100%);max-height:92vh;overflow:auto;border:2.5px solid var(--ink);border-radius:36px 44px 32px 48px;padding:1.4rem clamp(1.2rem,4vw,2.6rem) 2.4rem}
+.mbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.mbar button{font:700 .95rem var(--f);color:var(--ink);background:none;border:2px solid var(--ink);border-radius:99px;padding:.3rem .9rem;cursor:pointer}
+.mbar .mx{font-size:1.4rem;line-height:1;padding:.1rem .7rem}
+.soon{border:2.5px dashed var(--ink);border-radius:30px;padding:2.5rem 1.5rem;text-align:center;background:var(--blue);color:var(--card-ink)}
+.soon .hand{font-size:2.2rem}
+.sq{border-top:2px solid var(--ink);padding:1.4rem 0}
+.sq h3{font-size:1.5rem;text-transform:none;margin-bottom:.4rem}
+.bar-r{display:grid;grid-template-columns:minmax(90px,30%) 1fr 3.2rem;gap:.7rem;align-items:center;margin:.5rem 0;font-size:.95rem}
+.bar-r i{display:block;height:20px;border:2px solid var(--card-ink);border-radius:99px;background:var(--pink)}
+@media (max-width:820px){.os-hero,.os-row,.os-two,.os-box.pink .os-two{grid-template-columns:1fr;gap:2rem}.comp{height:280px}.clip{position:relative;top:0}.side{position:static}}
+.os-hero,.os-box,.os-real{position:relative}
+.sv-head{font-weight:700;margin:0 0 1.2rem;color:var(--soft)}
+.sv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem}
+.qc{position:relative;border:2.5px solid var(--card-ink);border-radius:28px 36px 24px 40px;padding:1.6rem 1.4rem 1.3rem;color:var(--card-ink);transition:transform .25s,box-shadow .25s}
+.qc:nth-child(even){border-radius:38px 24px 40px 26px}
+.qc.pink{background:var(--pink)}.qc.blue{background:var(--blue)}.qc.green{background:var(--green)}
+.qc:hover{transform:translateY(-4px) rotate(-.6deg);box-shadow:5px 7px 0 var(--card-ink)}
+.qc .doodle{right:.7rem;top:.7rem;width:46px;height:46px}.qc .doodle *{stroke:#353535}
+.qc h3{font-size:1.2rem;line-height:1.2;max-width:82%;margin:0 0 .5rem;text-transform:none;letter-spacing:-.025em}
+.qc small{font-weight:700;opacity:.7}
+.qrow{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:.6rem}
+.pie{width:170px;height:170px;flex:none;overflow:visible}
+.pie .seg{transition:stroke-dasharray 1s cubic-bezier(.3,.8,.3,1),stroke-width .2s;cursor:pointer;outline:none}
+.pie .seg:hover,.pie .seg:focus{stroke-width:41}
+.pie text{font-family:var(--f);fill:#353535;pointer-events:none}
+.pie .pc{font-size:22px;font-weight:800;letter-spacing:-.04em}.pie .pl{font-size:13px;font-weight:700}
+.leg{list-style:none;margin:0;padding:0;font-size:.9rem;font-weight:700;display:grid;gap:.5rem}
+.leg i{display:inline-block;width:14px;height:14px;border:2px solid #353535;border-radius:50%;margin-right:.45rem;vertical-align:-2px}
+.cap{margin:.8rem 0 0;font-size:.95rem}
+@media (prefers-reduced-motion:reduce){.qc,.pie .seg{transition:none}}
+.soonpage{position:relative;text-align:center;padding:5rem 0 6rem}
+.soonpage h1{font-size:clamp(3rem,10vw,6.5rem);line-height:.95}
+.soonpage h1 span{display:inline-block;background:var(--green);color:var(--card-ink);padding:0 .2em;border-radius:.4em .6em .35em .55em;transform:rotate(-2deg)}
+.soonpage .hand{margin:1rem 0;text-decoration:underline wavy var(--accent);text-decoration-thickness:2px;text-underline-offset:.25em;display:inline-block}
+.soonpage p{max-width:30rem;margin:1rem auto 2rem}
+.bw-wrap{padding-top:2.5rem;padding-bottom:5rem}
+.bw{max-width:980px;margin:0 auto;background:var(--paper);border:2.5px solid #353535;border-radius:40px 46px 36px 48px/44px 38px 46px 40px;box-shadow:0 22px 44px -22px rgba(53,53,53,.38),7px 9px 0 var(--blue);overflow:hidden}
+.bw-bar{display:flex;align-items:center;gap:.55rem;padding:.95rem 1.4rem;background:var(--pink);border-bottom:2.5px solid #353535}
+.bw-dot{display:block;width:15px;height:15px;border:2px solid #353535;border-radius:50%}
+.bw-dot.r{background:#FF6159}.bw-dot.y{background:#FFC130}.bw-dot.g{background:#2ACB42}
+.bw-body{min-height:min(72vh,720px)}
+@media (max-width:600px){.bw-wrap{padding-top:1.4rem;padding-bottom:3rem}.bw{border-radius:28px 32px 26px 34px/30px 26px 32px 28px;box-shadow:0 16px 32px -18px rgba(53,53,53,.38),5px 6px 0 var(--blue)}.bw-bar{padding:.8rem 1.1rem}.bw-dot{width:13px;height:13px}.bw-body{min-height:68vh}}
+.bw-list{display:grid;gap:2.6rem;max-width:980px;margin:0 auto}
+a.bw-post{display:block;width:100%;margin:0;color:var(--card-ink);text-decoration:none;transition:transform .25s,box-shadow .25s}
+a.bw-post:hover,a.bw-post:focus-visible{transform:translateY(-5px) rotate(-.4deg);box-shadow:0 26px 48px -22px rgba(53,53,53,.42),9px 11px 0 var(--blue);outline:none}
+.bw-post.pink .bw-bar{background:var(--pink)}.bw-post.blue .bw-bar{background:var(--blue)}.bw-post.green .bw-bar{background:var(--green)}
+.bw-post .bw-body{position:relative;min-height:0;padding:2.4rem clamp(1.4rem,5vw,3.2rem) 3.4rem}
+.bw-post small{font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:.74rem;opacity:.7}
+.bw-post h3{font-size:clamp(1.7rem,4.6vw,3rem);line-height:1.05;margin:.7rem 0 1rem;max-width:88%}
+.bw-post p{margin:0;max-width:34rem;font-size:1.05rem}
+.bw-post .doodle{right:clamp(1rem,4vw,2.4rem);bottom:1rem;width:68px;height:68px}
+@media (max-width:600px){.bw-list{gap:1.8rem}.bw-post .bw-body{padding:1.7rem 1.3rem 4.4rem}.bw-post h3{max-width:100%}.bw-post .doodle{width:56px;height:56px}}
+.pdate{display:inline-block;vertical-align:middle;margin-left:.6rem;padding:.12rem .6rem;border-radius:99px;background:rgba(255,254,251,.62);font-size:.72rem;font-weight:700;letter-spacing:.04em;line-height:1.4;opacity:.8;white-space:nowrap}
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.float{animation:none}html{scroll-behavior:auto}}
+@media (max-width:600px){.doodle.hide-sm{display:none}.story{padding:2.5rem 1.2rem}}
+
+/* first-visit note */
+#note{position:fixed;left:1.1rem;bottom:1.1rem;z-index:40;width:min(calc(100vw - 2.2rem),330px);background:#FCFBF7;border:2.5px solid #353535;border-radius:26px 22px 28px 20px;padding:1.1rem 2.6rem 1rem 1.1rem;box-shadow:5px 6px 0 #E1EBD7,0 10px 26px rgba(53,53,53,.14);animation:npop .5s cubic-bezier(.3,1.5,.5,1)}
+#note[hidden]{display:none}
+#note h2{margin:0 0 .45rem;font-size:1.05rem;letter-spacing:-.01em;line-height:1.15;display:inline;background:linear-gradient(transparent 58%,#F7EBAE 58%)}
+#note p{margin:.55rem 0 0;font-size:.82rem;line-height:1.5}
+#note .nx{position:absolute;top:.6rem;right:.6rem;width:1.8rem;height:1.8rem;display:grid;place-items:center;padding:0;border:2px solid #353535;border-radius:50%;background:#F1DDD3;color:#353535;font:inherit;font-weight:800;font-size:.9rem;line-height:1;cursor:pointer;transition:transform .15s}
+#note .nx:hover{transform:scale(1.1) rotate(8deg)}
+#note .nx:focus-visible{outline:3px solid #353535;outline-offset:2px}
+@keyframes npop{from{opacity:0;transform:translateY(16px) scale(.94)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#note{animation:none}}
+
+.bw-post.bw-full .bw-body{padding:2.6rem max(clamp(1.4rem,5vw,3.2rem),calc((100% - 46rem)/2)) 2.8rem}
+.bw-post.bw-full h3{margin-bottom:1.6rem;max-width:none}
+@media (max-width:600px){.bw-post.bw-full .bw-body{padding-top:1.9rem;padding-bottom:2.2rem}}
+.back{display:inline-flex;align-items:center;margin:0 0 1.1rem;padding:.4rem 1rem;border:2px solid #353535;border-radius:99px;background:#FCFBF7;color:#353535;font-weight:800;font-size:.88rem;text-decoration:none;box-shadow:2px 3px 0 var(--blue);transition:transform .15s,box-shadow .15s}
+.back:hover,.back:focus-visible{transform:translate(-2px,-2px);box-shadow:4px 5px 0 var(--blue);outline:none}
+.back:focus-visible{outline:3px solid #353535;outline-offset:3px}
+.art-fig{margin:2.2rem auto .4rem;text-align:center}
+.art-fig img{display:inline-block;width:min(100%,300px);height:auto}
+/* articles */
+.bw-article{max-width:none}
+.bw-article p{margin:0 0 1.15rem;max-width:none;font-size:1.05rem;line-height:1.72}
+.bw-article h4{margin:2.1rem 0 .8rem;font-size:clamp(1.2rem,3vw,1.5rem);line-height:1.2;letter-spacing:-.01em;display:block;width:fit-content;background:linear-gradient(transparent 60%,rgba(247,235,174,.85) 60%)}
+.refs{margin-top:2.2rem;padding-top:1.1rem;border-top:2px dashed rgba(53,53,53,.28)}
+.refs-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.35rem .95rem;border:2px solid #353535;border-radius:99px;background:rgba(255,254,251,.7);color:#353535;font:inherit;font-weight:800;font-size:.88rem;cursor:pointer;transition:transform .15s,background .2s}
+.refs-btn:hover{transform:translateY(-1px);background:#fff}
+.refs-btn:focus-visible{outline:3px solid #353535;outline-offset:3px}
+.refs-arr{display:inline-block;font-size:1rem;line-height:1;transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+.refs-btn[aria-expanded=true] .refs-arr{transform:rotate(180deg)}
+.refs-panel{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .4s ease,visibility 0s .4s}
+.refs-panel.open{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .4s ease,visibility 0s}
+.refs-in{overflow:hidden;min-height:0}
+.refs-in ul{list-style:none;margin:0;padding:.9rem 0 0}
+.refs-in li{margin:0 0 .85rem;font-size:.84rem;line-height:1.55;padding-left:1.1rem;text-indent:-1.1rem;overflow-wrap:anywhere}
+.refs-in a{color:#353535;text-decoration:underline;text-decoration-color:rgba(53,53,53,.4);text-underline-offset:2px}
+.refs-in a:hover{text-decoration-color:#353535}
+@media (prefers-reduced-motion:reduce){.refs-panel,.refs-arr{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<filter id="wobble"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="5"/></filter>
+<symbol id="flower" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="9" fill="#F7EBAE"/><path d="M40 31C30 14 52 12 41 30M49 38C68 28 70 50 50 44M44 49C54 68 30 68 36 49M31 44C12 52 12 30 31 37M33 34C20 20 40 18 38 31" fill="#F1DDD3"/><path d="M41 52C42 62 38 70 40 78" /></symbol>
+<symbol id="star" viewBox="0 0 80 80" fill="none"><path d="M40 8l9 22 24 3-18 16 6 24-21-13-21 13 5-24L7 33l24-3z" fill="#F7EBAE"/></symbol>
+<symbol id="heart" viewBox="0 0 80 80" fill="none"><path d="M40 72C38 56 41 44 40 34"/><path d="M40 44C26 46 14 36 14 22c16-2 28 6 26 22z" fill="#C9DDB8"/><path d="M41 36C44 20 58 12 68 14c2 14-8 26-27 22z" fill="#E1EBD7"/></symbol>
+<symbol id="face" viewBox="0 0 80 80" fill="none"><path d="M11 52C4 22 22 4 42 5c22 1 36 18 27 48l-8-6L22 47z" fill="#F1DDD3"/><path d="M18 40C17 26 28 20 41 20c13 0 22 8 21 22-1 14-9 24-21 24S19 54 18 40z" fill="#FFFEFB"/><path d="M17 36C24 22 40 16 63 34 50 24 34 24 17 36z" fill="#F1DDD3"/><path d="M28 41h9M46 41h9M37 57h8"/><circle cx="33" cy="43.5" r="1.8" fill="#353535"/><circle cx="51" cy="43.5" r="1.8" fill="#353535"/></symbol>
+<symbol id="nara2" viewBox="0 0 80 80" fill="none"><path d="M12 70C4 30 18 5 42 5c24 0 38 25 28 65-6-2-9-8-10-14L24 56c-1 6-6 12-12 14z" fill="#E5E9F2"/><path d="M19 40C18 27 28 21 41 21c13 0 22 7 21 20-1 14-9 24-21 24S20 54 19 40z" fill="#FFFEFB"/><path d="M17 36C24 20 42 14 64 36 52 26 32 26 17 36z" fill="#E5E9F2"/><path d="M28 43h9M46 43h9M38 56c2 2 5 2 7 0"/><circle cx="34" cy="45.5" r="1.8" fill="#353535"/><circle cx="52" cy="45.5" r="1.8" fill="#353535"/></symbol>
+<symbol id="nara3" viewBox="0 0 80 80" fill="none"><path d="M10 56C6 22 22 5 42 5s34 17 30 51z" fill="#E1EBD7"/><path d="M19 42C18 28 29 22 41 22c13 0 22 8 21 21-1 13-9 23-21 23S20 56 19 42z" fill="#FFFEFB"/><path d="M28 42c3 3 6 3 9 0M46 42c3 3 6 3 9 0M36 57c2-2 3 2 5 0s3 2 5 0"/></symbol>
+<symbol id="nara4" viewBox="0 0 100 110" fill="none"><path d="M14 62C4 30 24 6 52 6c28 0 46 24 34 58-3 8-6 14-6 20H22c-2-6-6-12-8-22z" fill="#F1DDD3"/><path d="M20 110c0-16 12-24 30-24s30 8 30 24z" fill="#E5E9F2"/><path d="M43 80v8M57 80v8"/><path d="M22 56C20 36 34 26 52 26c18 0 30 10 28 30-2 20-14 32-28 32S24 76 22 56z" fill="#FFFEFB"/><path d="M19 52L22 30C34 18 62 16 80 30L83 52 74 40 66 50 58 38 48 50 38 38 30 50 24 42z" fill="#F1DDD3"/><path d="M16 70c2 6 2 10 6 14M86 66c-2 8-2 12-6 16M30 14c-4 6-6 12-6 18M70 12c4 6 6 10 6 16"/><path d="M30 58c6-6 16-6 20 0-6 6-14 6-20 0zM56 58c6-6 16-6 20 0-6 6-14 6-20 0z" fill="#FFFEFB"/><circle cx="41" cy="58" r="4" fill="#E1EBD7"/><circle cx="66" cy="58" r="4" fill="#E1EBD7"/><circle cx="41" cy="58" r="1.6" fill="#353535"/><circle cx="66" cy="58" r="1.6" fill="#353535"/><path d="M29 55c8-6 18-6 22 0M55 55c6-6 16-6 22 0M30 48c6-3 12-3 18 0M56 48c6-3 12-3 18 0M52 66c-1 3 1 5 3 4M45 78c4 2 10 2 14-1M28 68l4-3M31 71l4-3M76 68l-4-3M73 71l-4-3"/></symbol>
+<symbol id="cloud" viewBox="0 0 80 80" fill="none"><path d="M18 56C4 54 6 36 20 36c2-16 28-18 34-4 16-2 20 22 4 24z" fill="#E5E9F2"/><path d="M30 44l2 6M44 44l2 6"/></symbol>
+<symbol id="kid" viewBox="0 0 80 80" fill="none"><path d="M12 40C10 14 30 8 42 9c20 1 28 18 26 36-2 20-14 28-28 27S14 62 12 40z" fill="#FFFEFB"/><path d="M11 42C6 14 30 4 44 7c22 2 30 20 26 40-3-14-6-24-14-27-12 6-30 8-44 6z" fill="#E8C9B8"/><path d="M25 41h10M45 40h10"/><circle cx="30" cy="44" r="2.2" fill="#353535"/><circle cx="50" cy="43" r="2.2" fill="#353535"/><path d="M35 60h11"/></symbol>
+<symbol id="kid2" viewBox="0 0 80 80" fill="none"><path d="M12 40C10 14 30 8 42 9c20 1 28 18 26 36-2 20-14 28-28 27S14 62 12 40z" fill="#FFFEFB"/><path d="M11 42C6 14 30 4 44 7c22 2 30 20 26 40-3-14-6-24-14-27-12 6-30 8-44 6z" fill="#CFC6B8"/><path d="M24 40l12 4M56 39l-12 4"/><circle cx="31" cy="46" r="2.2" fill="#353535"/><circle cx="49" cy="46" r="2.2" fill="#353535"/><path d="M33 62c4-4 10-4 14 0"/></symbol>
+<symbol id="kid3" viewBox="0 0 80 80" fill="none"><path d="M12 40C10 14 30 8 42 9c20 1 28 18 26 36-2 20-14 28-28 27S14 62 12 40z" fill="#FFFEFB"/><path d="M10 44C4 14 30 3 44 6c24 2 30 22 26 42-4-10-6-24-14-28-12 6-30 8-46 4z" fill="#E5E9F2"/><path d="M24 45c3 4 8 4 11 0M45 44c3 4 8 4 11 0"/><path d="M33 60c3 2 5-2 8 0s4 2 7-1"/></symbol>
+<symbol id="book" viewBox="0 0 80 80" fill="none"><path d="M8 20c10-4 22-4 32 4 10-8 22-8 32-4v44c-10-4-22-4-32 4-10-8-22-8-32-4z" fill="#FFFEFB"/><path d="M40 24v44M16 31c6-1 14 0 20 3M16 43c6-1 14 0 20 3M44 34c6-3 14-4 20-3M44 46c6-3 14-4 20-3"/></symbol>
+<symbol id="bubble" viewBox="0 0 80 80" fill="none"><path d="M10 24c0-9 8-13 30-13s30 4 30 14-6 19-28 19H34L18 64l2-19C12 41 10 33 10 24z" fill="#FFFEFB"/><circle cx="28" cy="30" r="2.5" fill="#353535"/><circle cx="40" cy="30" r="2.5" fill="#353535"/><circle cx="52" cy="30" r="2.5" fill="#353535"/></symbol>
+<symbol id="squig" viewBox="0 0 80 80" fill="none"><path d="M6 50c8-24 14-24 18-4s12 20 18-6 14-22 20 2 8 6 10 0"/></symbol>
+<symbol id="arrow" viewBox="0 0 80 80" fill="none"><path d="M8 20c24-6 44 6 52 40M60 60l-12-14M60 60l12-16"/></symbol>
+<symbol id="pencil" viewBox="0 0 80 80" fill="none"><path d="M16 64l4-14 36-36 10 10-36 36z" fill="#C9D5EA"/><path d="M20 50l10 10"/></symbol>
+</svg>
+
+<header><div class="bar">
+<a class="logo" href="/">side note</a>
+<nav class="nav" aria-label="Main"><a href="/" data-p="home" data-i18n="nav_home">Home</a><a href="/blog" data-p="blog" data-i18n="nav_blog">Blog</a><a href="/our-story" data-p="our-story" data-i18n="nav_our-story">Our Story</a><a href="/resources" data-p="resources" data-i18n="nav_resources">Resources</a><a href="/student-voices" data-p="student-voices" data-i18n="nav_student-voices">Student Voices</a></nav>
+<div class="lang" role="group" aria-label="Language"><button class="chip c3" data-l="en" aria-pressed="true">EN</button><button class="chip c3" data-l="pt" aria-pressed="false">PT</button><button class="chip c3" data-l="zh" aria-pressed="false">中文</button></div>
+</div></header>
+
+<main id="top">
+<div class="page" data-page="home">
+<div class="wrap hero">
+<svg class="doodle float hide-sm" style="left:2%;top:3rem;width:84px;height:84px"><use href="#flower"/></svg>
+<svg class="doodle float hide-sm" style="right:3%;top:2rem;animation-delay:-2s"><use href="#star"/></svg>
+<h1 class="rv">side <span>note</span></h1>
+<p class="rv" data-i18n="intro">High school comes with a lot that no one really talks about. This website is intended to be a space where I write about the struggles, pressures, and experiences that come with being a high school student, while sharing different student perspectives and helpful resources. From academics and motivation to comparison, uncertainty, and everything in between, the goal is to bring attention to the parts of high school that often go unspoken and remind students that these experiences are more common than they may seem.</p>
+<div class="alone rv" data-i18n="alone">You're not alone.</div>
+<div class="sig rv">xo, gigi</div>
+</div>
+
+<section id="posts"><div class="wrap">
+<h2 class="sec-title rv"><span data-i18n="posts">Latest posts</span>
+<svg class="doodle" style="right:-62px;top:-14px;width:54px;height:54px"><use href="#pencil"/></svg></h2>
+<div class="filters rv" role="group" aria-label="Filter posts"><button class="chip c3 fbtn" data-f="all" aria-pressed="true" data-i18n="c_all">All</button><button class="chip c0 fbtn" data-f="school" data-i18n="c_school">School &amp; Life</button><button class="chip c2 fbtn" data-f="relationships" data-i18n="c_rel">Relationships</button><button class="chip c1 fbtn" data-f="growing" data-i18n="c_grow">Growing Up</button></div>
+<div class="grid">
+<a class="card pink rv" data-c="school" href="/blog/grades-and-confidence"><svg class="doodle float" style="animation-delay:-0s"><use href="#kid2"/></svg><small data-i18n="c_school">School &amp; Life</small><time class="pdate" datetime="2026-04-25">25/04/26</time><h3 data-i18n="t1">Why Do Grades Affect My Confidence?</h3><p data-i18n="q1">“It's harder to separate my performance from my ability when I know I genuinely tried.”</p></a>
+<a class="card blue rv" data-c="growing" href="/blog/comparing-myself"><svg class="doodle float" style="animation-delay:-1s"><use href="#nara2"/></svg><small data-i18n="c_grow">Growing Up</small><time class="pdate" datetime="2026-05-20">20/05/26</time><h3 data-i18n="t2">How Do I Stop Comparing Myself to Everyone Else?</h3><p data-i18n="q2">“You can be perfectly happy with your achievements until you find out what someone else has accomplished.”</p></a>
+<a class="card blue rv" data-c="growing" href="/blog/small-decisions"><svg class="doodle float" style="animation-delay:-2s"><use href="#flower"/></svg><small data-i18n="c_grow">Growing Up</small><time class="pdate" datetime="2026-07-13">13/07/26</time><h3 data-i18n="t3">Why Do Small Decisions Sometimes Feel So Overwhelming?</h3><p data-i18n="q3">“We want to make the best possible choice, even when there isn't necessarily one.”</p></a>
+<a class="card green rv" data-c="relationships" href="/blog/lonely-with-friends"><svg class="doodle float" style="animation-delay:-3s"><use href="#cloud"/></svg><small data-i18n="c_rel">Relationships</small><time class="pdate" datetime="2026-09-18">18/09/26</time><h3 data-i18n="t4">Can You Feel Lonely Even When You're Surrounded by Friends?</h3><p data-i18n="q4">“You can spend an entire day laughing with your friends and still come home feeling lonely.”</p></a>
+</div></div></section>
+
+<div class="wrap"><section id="story" class="story rv">
+<svg class="doodle float hide-sm" style="left:5%;top:-28px;width:80px;height:80px"><use href="#heart"/></svg>
+<svg class="doodle float hide-sm" style="right:6%;bottom:-24px;width:96px;height:96px"><use href="#kid"/></svg>
+<div class="in"><h2 data-i18n="began_h">Where it began</h2>
+<p data-i18n="began_p">What started as a small project about the overlooked sophomore experience eventually grew into something bigger: a space for the conversations we don't have enough of in high school.</p>
+<a class="btn" href="/our-story" data-i18n="began_b">Read the full story →</a></div>
+</section></div>
+
+<section id="explore"><div class="wrap duo">
+<a class="card go green rv" href="/resources"><svg class="doodle float"><use href="#book"/></svg><div><h3 data-i18n="r_h">Resources</h3><p data-i18n="r_p">Tools, guides, and helpful links.</p><span class="arw" aria-hidden="true">&rarr;</span></div></a>
+<a class="card go pink rv" href="/student-voices"><svg class="doodle float" style="animation-delay:-2s"><use href="#bubble"/></svg><div><h3 data-i18n="v_h">Student Voices</h3><p data-i18n="v_p">Real stories and different perspectives.</p><span class="arw" aria-hidden="true">&rarr;</span></div></a>
+</div></section>
+</div>
+<div class="page" data-page="blog" hidden><div class="wrap bw-wrap"><div class="bw-list">
+<a class="bw bw-post pink rv" href="/blog/grades-and-confidence">
+<div class="bw-bar" aria-hidden="true"><i class="bw-dot r"></i><i class="bw-dot y"></i><i class="bw-dot g"></i></div>
+<div class="bw-body"><small data-i18n="c_school">School &amp; Life</small><time class="pdate" datetime="2026-04-25">25/04/26</time><h3 data-i18n="t1">Why Do Grades Affect My Confidence?</h3>
+<svg class="doodle float" style="animation-delay:-0s" aria-hidden="true"><use href="#kid2"/></svg></div></a>
+<a class="bw bw-post blue rv" href="/blog/comparing-myself">
+<div class="bw-bar" aria-hidden="true"><i class="bw-dot r"></i><i class="bw-dot y"></i><i class="bw-dot g"></i></div>
+<div class="bw-body"><small data-i18n="c_grow">Growing Up</small><time class="pdate" datetime="2026-05-20">20/05/26</time><h3 data-i18n="t2">How Do I Stop Comparing Myself to Everyone Else?</h3>
+<svg class="doodle float" style="animation-delay:-1s" aria-hidden="true"><use href="#nara2"/></svg></div></a>
+<a class="bw bw-post blue rv" href="/blog/small-decisions">
+<div class="bw-bar" aria-hidden="true"><i class="bw-dot r"></i><i class="bw-dot y"></i><i class="bw-dot g"></i></div>
+<div class="bw-body"><small data-i18n="c_grow">Growing Up</small><time class="pdate" datetime="2026-07-13">13/07/26</time><h3 data-i18n="t3">Why Do Small Decisions Sometimes Feel So Overwhelming?</h3>
+<svg class="doodle float" style="animation-delay:-2s" aria-hidden="true"><use href="#flower"/></svg></div></a>
+<a class="bw bw-post green rv" href="/blog/lonely-with-friends">
+<div class="bw-bar" aria-hidden="true"><i class="bw-dot r"></i><i class="bw-dot y"></i><i class="bw-dot g"></i></div>
+<div class="bw-body"><small data-i18n="c_rel">Relationships</small><time class="pdate" datetime="2026-09-18">18/09/26</time><h3 data-i18n="t4">Can You Feel Lonely Even When You're Surrounded by Friends?</h3>
+<svg class="doodle float" style="animation-delay:-3s" aria-hidden="true"><use href="#cloud"/></svg></div></a>
+</div></div></div>
+<div class="page" data-page="blog/grades-and-confidence" hidden><div class="wrap bw-wrap"><a class="back" href="/blog"><span class="back-l">← Back to Blogs</span></a>
+<article class="bw bw-post bw-full pink rv">
+<div class="bw-bar" aria-hidden="true"><i class="bw-dot r"></i><i class="bw-dot y"></i><i class="bw-dot g"></i></div>
+<div class="bw-body"><small data-i18n="c_school">School &amp; Life</small><time class="pdate" datetime="2026-04-25">25/04/26</time><h3 data-i18n="t1">Why Do Grades Affect My Confidence?</h3><div class="bw-article"><p>We're constantly told that grades don't define us. It's a comforting thought, right up until we receive one we don't like.</p><p>I know perfectly that a disappointing grade doesn't make me stupid. Yet somehow, when I see a score lower than I expected, my first thought isn't always that I struggled with the test. Maybe I'm just not as capable as I thought.</p><p>Perhaps grades affect us so much because they seem objective. Effort is difficult to quantify. So are improvement and potential. But a number at the top of a page seems definitive. It gives us something concrete to measure ourselves against, even when it doesn't tell the whole story.</p><p>And not to sugarcoat it, they do measure something. They can reflect how well we understood certain material or performed on an assessment. However, the problem begins when we allow them to measure everything else too, such as our potential, or even our worth.</p><p>Psychologists describe something similar through the concept of contingent self-worth. This happens when someone's sense of personal value depends on success or validation in a particular area, such as academics (Crocker &amp; Wolfe, 2001).</p><p>When achievement becomes one of the main ways we reassure ourselves that we're capable, a good grade feels like confirmation. A bad one can feel like the opposite.</p><p>Ironically, a disappointing grade can hurt even more when we've genuinely worked hard for it.</p><p>If I barely studied, I can blame my lack of preparation. There's an explanation that protects my confidence. But when I've spent hours studying and still don't get the result I hoped for, that explanation disappears. It's harder to separate my performance from my ability when I know I genuinely tried.</p><p>There's also something unfair about how long disappointing grades seem to stay with us.</p><p>A good grade makes me happy, but the satisfaction doesn't always last very long. I accept it and eventually move on. Yet a disappointing grade can stay with me for much longer. I find myself replaying the mistakes I made and I can’t seem to get my mind off of it. Sometimes, one disappointing result seems to carry more weight than several good ones.</p><p>Psychologists call this negativity bias, where negative experiences or information can have a stronger impact on us than positive ones (Baumeister et al., 2001).</p><p>And perhaps that's why a single number can sometimes change how we feel about an entire subject, even when our previous results suggest otherwise.</p><figure class="art-fig"><img src="/assets/img/article-grades.webp" width="724" height="760" alt="A drawing of a girl with messy hair sitting on the floor, looking sadly at a test marked with an F, surrounded by books, a notebook, a storm cloud and a broken heart" loading="lazy"></figure><h4>What happens after the disappointment?</h4><p>It's easy to tell someone not to take a grade personally. It's considerably harder to follow that advice when you're the one staring at the result.</p><p>In a 2008 study, Nussbaum and Dweck found that people who believed intelligence couldn't change were more likely to protect their confidence after failure by comparing themselves to people who did worse. Those who believed they could improve were more willing to look at their mistakes and learn from them.</p><p>But knowing that intelligence can develop doesn't automatically make a disappointing grade easier to accept.</p><p>We can't always control our immediate reaction to a result. We can, however, decide what happens afterward. Reviewing our mistakes, asking for feedback, or changing how we prepare might not erase the disappointment, but it can give us something more useful to do with it.</p><p>Research by Breines and Chen (2012) also found that self-compassion can encourage self-improvement. In one experiment, participants prompted to respond to failure with self-compassion spent more time studying for a subsequent test.</p><p>That finding challenges the assumption that being hard on ourselves is necessary for improvement. We can take our mistakes seriously without turning every disappointing result into another reason to criticize ourselves.</p><p>Grades matter. They can affect our academic opportunities, and it's reasonable to care about something we've invested time and effort into.</p><p>But there's a difference between recognizing that a grade matters and allowing it to determine what we believe about ourselves.</p><div class="refs"><button class="refs-btn" type="button" aria-expanded="false" aria-controls="refs1"><span class="refs-l">References</span> <span class="refs-arr" aria-hidden="true">˅</span></button><div class="refs-panel" id="refs1"><div class="refs-in"><ul><li>Crocker, J., &amp; Wolfe, C. T. (2001). Contingencies of self-worth. Psychological Review, 108(3), 593–623. <a href="https://doi.org/10.1037/0033-295X.108.3.593" target="_blank" rel="noopener noreferrer">https://doi.org/10.1037/0033-295X.108.3.593</a></li><li>Baumeister, R. F., Bratslavsky, E., Finkenauer, C., &amp; Vohs, K. D. (2001). Bad is stronger than good. Review of General Psychology, 5(4), 323–370. <a href="https://doi.org/10.1037/1089-2680.5.4.323" target="_blank" rel="noopener noreferrer">https://doi.org/10.1037/1089-2680.5.4.323</a></li><li>Nussbaum, A. D., &amp; Dweck, C. S. (2008). Defensiveness versus remediation: Self-theories and modes of self-esteem maintenance. Personality and Social Psychology Bulletin, 34(5), 599–612. <a href="https://doi.org/10.1177/0146167207312960" target="_blank" rel="noopener noreferrer">https://doi.org/10.1177/0146167207312960</a></li><li>Breines, J. G., &amp; Chen, S. (2012). Self-compassion increases self-improvement motivation. Personality and Social Psychology Bulletin, 38(9), 1133–1143. <a href="https://doi.org/10.1177/0146167212445599" target="_blank" rel="noopener noreferrer">https://doi.org/10.1177/0146167212445599</a></li></ul></div></div></div></div></div></article></div></div>
+<div class="page" data-page="blog/comparing-myself" hidden><div class="wrap bw-wrap"><a class="back" href="/blog"><span class="back-l">← Back to Blogs</span></a>
+<article class="bw bw-post bw-full blue rv">
+<div class="bw-bar" aria-hidden="true"><i class="bw-dot r"></i><i class="bw-dot y"></i><i class="bw-dot g"></i></div>
+<div class="bw-body"><small data-i18n="c_grow">Growing Up</small><time class="pdate" datetime="2026-05-20">20/05/26</time><h3 data-i18n="t2">How Do I Stop Comparing Myself to Everyone Else?</h3><div class="bw-article"><p>You can be perfectly happy with your achievements until you find out what someone else has accomplished.</p><p>Maybe you were proud of your test grade until you heard what your friend got. Or you felt good about your extracurriculars until you saw how much someone else was doing. Suddenly, something you were satisfied with five minutes ago doesn't seem quite as impressive anymore.</p><p>And that's what I find so frustrating about comparison. Nothing about our own achievements has actually changed. We've just found someone else to measure them against.</p><p>Psychologist Leon Festinger explored this tendency in his Social Comparison Theory (1954). He suggested that people naturally compare themselves to others to evaluate their abilities and opinions, especially when there's no clear way to measure them (Festinger, 1954).</p><p>Psychologists also distinguish between upward social comparison, when we compare ourselves to people we think are doing better, and downward social comparison, when we compare ourselves to those we think are doing worse (Wills, 1981; Wood, 1989).</p><p>Comparison isn't always a bad thing. Seeing someone succeed can motivate us to work harder or try something new. But it can also leave us wondering whether we're doing enough, even when we were perfectly satisfied with our progress before.</p><p>And social media gives us many opportunities to wonder.</p><p>You've probably seen Instagram accounts that share students' university acceptances. My school has one too, and I genuinely enjoy seeing people get into universities they've worked hard for.</p><p>But there's something strange about scrolling through acceptance after acceptance, especially when they're from prestigious universities. You might not even be applying yet, but suddenly you're questioning whether you're doing enough to prepare for your own future.</p><p>There's nothing wrong with celebrating these achievements. But the posts only show us part of the story. We see where students were accepted, without necessarily seeing the rejections, uncertainty, or effort that came before.</p><p>It's easy to forget that we're looking at a collection of successful moments rather than a complete picture of everyone's experiences.</p><p>There's another psychological concept called pluralistic ignorance, which occurs when people privately feel or believe something but mistakenly assume that others feel differently (Prentice &amp; Miller, 1993).</p><p>For example, we might feel uncertain about our academic abilities or future plans but assume that everyone else has everything figured out. Since people don't always openly discuss their doubts, it's easy to mistake their confidence on the outside for certainty on the inside.</p><p>Of course, some people genuinely are confident about their futures. Others might be struggling with things we know nothing about. Either way, we're making judgments about ourselves based on information we don't fully have.</p><figure class="art-fig"><img src="/assets/img/article-comparing.webp" width="743" height="760" alt="A drawing of a girl with long messy hair holding a phone, daydreaming in a thought bubble about a classmate with an A+ test and a university acceptance letter" loading="lazy"></figure><h4>How can we shift our focus back to our own progress?</h4><p>I'm not convinced we can completely stop comparing ourselves. But we can question what those comparisons actually tell us.</p><p>When someone gets a higher grade or is accepted into a prestigious university, does that mean we're falling behind? Do we even have the same goals?</p><p>It also helps to look at how far we've come rather than only how far ahead someone else seems to be. Maybe we've improved in a subject we used to struggle with or finally tried something we'd been putting off. Those achievements still matter, even if nobody's posting about them.</p><p>And when it comes to social media, it's worth remembering how little we actually know from a single post. An acceptance announcement tells us where someone got in. It doesn't tell us everything they went through to get there.</p><p>The next time I find myself comparing my progress to someone else's, I want to ask whether I'm actually falling behind, or whether I've simply started measuring my achievements against someone else's goals.</p><div class="refs"><button class="refs-btn" type="button" aria-expanded="false" aria-controls="refs2"><span class="refs-l">References</span> <span class="refs-arr" aria-hidden="true">˅</span></button><div class="refs-panel" id="refs2"><div class="refs-in"><ul><li>Festinger, L. (1954). A theory of social comparison processes. Human Relations, 7(2), 117–140. <a href="https://doi.org/10.1177/001872675400700202" target="_blank" rel="noopener noreferrer">https://doi.org/10.1177/001872675400700202</a></li><li>Prentice, D. A., &amp; Miller, D. T. (1993). Pluralistic ignorance and alcohol use on campus: Some consequences of misperceiving the social norm. Journal of Personality and Social Psychology, 64(2), 243–256. <a href="https://doi.org/10.1037/0022-3514.64.2.243" target="_blank" rel="noopener noreferrer">https://doi.org/10.1037/0022-3514.64.2.243</a></li><li>Wills, T. A. (1981). Downward comparison principles in social psychology. Psychological Bulletin, 90(2), 245–271. <a href="https://doi.org/10.1037/0033-2909.90.2.245" target="_blank" rel="noopener noreferrer">https://doi.org/10.1037/0033-2909.90.2.245</a></li><li>Wood, J. V. (1989). Theory and research concerning social comparisons of personal attributes. Psychological Bulletin, 106(2), 231–248. <a href="https://doi.org/10.1037/0033-2909.106.2.231" target="_blank" rel="noopener noreferrer">https://doi.org/10.1037/0033-2909.106.2.231</a></li></ul></div></div></div></div></div></article></div></div>
+<div class="page" data-page="blog/small-decisions" hidden><div class="wrap bw-wrap"><a class="back" href="/blog"><span class="back-l">← Back to Blogs</span></a>
+<article class="bw bw-post bw-full blue rv">
+<div class="bw-bar" aria-hidden="true"><i class="bw-dot r"></i><i class="bw-dot y"></i><i class="bw-dot g"></i></div>
+<div class="bw-body"><small data-i18n="c_grow">Growing Up</small><time class="pdate" datetime="2026-07-13">13/07/26</time><h3 data-i18n="t3">Why Do Small Decisions Sometimes Feel So Overwhelming?</h3><div class="bw-article"><p>I've spent more time deciding how to spend my free time than actually enjoying it.</p><p>Sometimes, even the smallest decisions become a whole debate in my head. Should I join another extracurricular? Should I study for that test next week? Or should I just take a break? A normal afternoon becomes another thing I need to plan.</p><p>I think part of the problem is that at this age, we're constantly encouraged to make the most of our time, especially in high school. We're told to explore our interests, build our experiences, challenge ourselves, and prepare for our futures. And while there's nothing wrong with any of that, it can make even ordinary decisions feel like opportunities we can't afford to waste.</p><p>For example, choosing an extracurricular shouldn't be that stressful. But suddenly, I'm wondering whether it's something I'll genuinely enjoy and if it’s something that could potentially be listed in my applications, or whether I should be doing something more productive instead. Before I know it, I'm no longer thinking about what I actually want to do. I'm thinking about everything I might be missing out on by choosing it. This is what makes certain decisions so exhausting.</p><figure class="art-fig"><img src="/assets/img/article-decisions.webp" width="760" height="749" alt="A drawing of a girl with her chin in her hands, surrounded by thought bubbles of a book, a tennis racket, a pillow, a phone, a checklist and an alarm clock, all tangled up in question marks" loading="lazy"></figure><p>We want to make the best possible choice, even when there isn't necessarily one.</p><p>But how are we supposed to know which option is best when we haven't experienced either of them yet?</p><p>Of course, some decisions deserve careful thought. Choosing IB subjects, for example, can affect what we study later. But deciding how to spend a Saturday afternoon probably shouldn't require the same level of planning.</p><p>Something I've been trying to remind myself is that not every choice needs to be the best possible one. Sometimes, it's enough to choose something because I want to do it.</p><p>And if I end up regretting a small decision, that's fine too. I can make a different one next time.</p><p>After all, spending an entire afternoon worrying about how to make the most of it is probably the least productive way to spend it.</p></div></div></article></div></div>
+<div class="page" data-page="blog/lonely-with-friends" hidden><div class="wrap bw-wrap"><a class="back" href="/blog"><span class="back-l">← Back to Blogs</span></a>
+<article class="bw bw-post bw-full green rv">
+<div class="bw-bar" aria-hidden="true"><i class="bw-dot r"></i><i class="bw-dot y"></i><i class="bw-dot g"></i></div>
+<div class="bw-body"><small data-i18n="c_rel">Relationships</small><time class="pdate" datetime="2026-09-18">18/09/26</time><h3 data-i18n="t4">Can You Feel Lonely Even When You're Surrounded by Friends?</h3><div class="bw-article"><p>You can spend an entire day laughing with your friends and still come home feeling lonely.</p><p>It's a strange feeling. Nothing particularly bad happened. You had fun and you genuinely enjoyed yourself. But once you're home, there's still this feeling of being disconnected that you can't quite explain.</p><p>And maybe the most confusing part is that you don't really have anyone to blame. Your friends haven't done anything wrong, so why do you feel this way?</p><p>I think we often associate loneliness with being physically alone or having nobody to spend time with. But having company and feeling connected aren't necessarily the same thing. Sometimes, we can appreciate the friendships we have while still feeling uncertain about where we belong.</p><p>For example, you might get along with people from different friend groups but never feel entirely part of any of them. You enjoy spending time together, yet there's a lingering sense of being slightly out of place. And the difficult part is that nobody has to deliberately exclude you for that feeling to exist.</p><p>Other times, loneliness might have very little to do with the people around you. You might be perfectly happy with your friendships but still experience moments when you feel disconnected.</p><p>There might not be a clear reason for it.</p><p>I think that's what makes loneliness difficult to admit. When you already have good friends, saying that you feel lonely can almost sound ungrateful, as though you're suggesting the people around you aren't enough. So you might keep the feeling to yourself, or even question whether you have a reason to feel it at all.</p><p>But feeling lonely doesn't mean you're ungrateful for the people in your life. And it doesn't automatically mean your friendships are missing something.</p><figure class="art-fig"><img src="/assets/img/article-friends-group.webp" width="760" height="634" alt="A drawing of a cheerful group of friends laughing together with a dog, while a girl sits apart from them with a thought bubble and a question mark" loading="lazy"></figure><h4>What can we do about it?</h4><p>Before deciding that something needs to change, it might help to understand where the feeling is coming from.</p><p>If you often feel out of place, maybe it's worth getting to know people you share more interests with or spending more time building the friendships you already have.</p><figure class="art-fig"><img src="/assets/img/article-friends-talking.webp" width="760" height="693" alt="A drawing of two classmates talking, one with long messy hair and a star hair clip, the other tall with a backpack" loading="lazy"></figure><p>But if you're happy with your friends and still feel lonely sometimes, you don't necessarily need to change your social life. It might help to think about whether something else has been bothering you, or whether you've simply been having a difficult day.</p><p>And sometimes, there won't be an obvious explanation. That's fine too.</p><p>We tend to expect good friendships to make us feel connected all the time. But even the people who make us happiest can't guarantee that we'll never feel lonely.</p><p>Having people who care about you is something to appreciate. It just doesn't mean you'll always feel connected, every single day.</p></div></div></article></div></div>
+<div class="page" data-page="article" hidden><div class="wrap bw-wrap">
+<div class="bw rv" role="region" aria-label="Blog article">
+<div class="bw-bar" aria-hidden="true"><i class="bw-dot r"></i><i class="bw-dot y"></i><i class="bw-dot g"></i></div>
+<div class="bw-body"></div>
+</div></div></div>
+<div class="page" data-page="our-story" hidden><div class="wrap os">
+<div class="os-hero">
+<div><h1 class="rv" data-i18n="h_os_h1">our <span>story</span></h1>
+<div class="hand rv" data-i18n="os_hand">where it all began</div>
+<p class="rv" data-i18n="os_intro">Side Note began with a school journalism article about the overlooked sophomore experience. Over time, it grew into a space for conversations about high school experiences.</p></div>
+<div class="comp rv" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><div class="note" data-i18n="os_note">the things that often go unspoken</div><svg class="doodle float" style="left:-6px;top:-14px;width:56px;height:56px;animation-delay:-1s"><use href="#star"/></svg><svg class="doodle float" style="right:-6px;bottom:-30px;width:80px;height:80px;animation-delay:-3s"><use href="#flower"/></svg></div>
+</div>
+
+<div class="os-row">
+<div class="rv"><h2><span class="mk" data-i18n="os_h2">it started with an article</span></h2>
+<p data-i18n="os_p1">It all started with an article I wrote for my school's journalism club, The Talon, titled ‘The Moment Sophomores Stop Feeling Invisible.’</p>
+<p data-i18n="os_p2">The article explored how sophomore year is often overlooked in high school, right between the excitement of freshman year and the growing responsibilities of junior and senior year. Yet, when IB course selection begins, sophomores suddenly face the pressure of making decisions that seem to determine their academics and futures at just 15 or 16 years old.</p>
+<p data-i18n="os_p3">Through my own experiences and observations, I explored the uncertainty, conflicting advice, and expectations that come with choosing between personal interests and future requirements.</p>
+<p data-i18n="os_p4">Ultimately, the article highlighted how sophomores spend much of the year feeling invisible, only to suddenly face expectations about their futures when many are still discovering who they are and what they want to pursue.</p></div>
+<div class="side"><a class="clip rv" href="https://www.gradedtalon.com/7390/showcase/the-moment-sophomores-stop-feeling-invisible/" target="_blank" rel="noopener noreferrer">
+<svg class="doodle float hide-sm" style="right:-12px;top:-56px;width:64px;height:64px;animation-delay:-2s"><use href="#heart"/></svg>
+<small data-i18n="os_clip_k">Featured article · The Talon</small>
+<h3>The Moment Sophomores Stop Feeling Invisible</h3>
+<p data-i18n="os_clip_p">A piece for the school journalism club on how sophomore year gets overlooked, until IB course selection suddenly puts big decisions on the table.</p>
+<span class="cta" data-i18n="os_cta">Read the original article ↗</span></a>
+<img class="school rv" alt="A crayon drawing of a student with a backpack standing in front of a school building" src="/assets/img/our-story-school.webp"></div>
+</div>
+
+<div class="os-box green rv"><svg class="doodle float hide-sm" style="right:6%;top:-34px;animation-delay:-1s"><use href="#cloud"/></svg><svg class="doodle float hide-sm" style="left:5%;bottom:-26px;width:56px;height:56px;animation-delay:-4s"><use href="#star"/></svg><div class="os-two">
+<div><h2 data-i18n="os_h3">from one article to a survey</h2>
+<p data-i18n="os_p5">After the article was published, I received responses from students, teachers, and even a school emotional counselor who shared how much the article resonated with them. Many expressed that it reflected experiences they had witnessed or personally gone through, making me realize that these feelings extended beyond my own perspective.</p>
+<p data-i18n="os_p6">Their responses encouraged me to explore the topic further. In April of my sophomore year, I conducted a survey involving over 30% of my grade, asking students about their experiences with academic pressure, motivation, confidence, and the challenges of preparing for the years ahead.</p></div>
+<div class="os-cta"><button class="svbtn" id="sv-open" type="button" aria-haspopup="dialog" data-i18n="os_btn">Explore the survey results →</button></div>
+</div></div>
+
+<div class="os-real rv"><svg class="doodle float hide-sm" style="left:14%;top:4rem;width:56px;height:56px;animation-delay:-2s"><use href="#star"/></svg><svg class="doodle float hide-sm" style="right:14%;top:3.6rem;width:64px;height:64px;animation-delay:-0s"><use href="#heart"/></svg><div class="hand" data-i18n="os_real_h">what i realized</div>
+<p class="soft" data-i18n="os_p7">The results showed that many students shared similar struggles, even if they rarely spoke about them openly.</p>
+<p class="big" data-i18n="h_os_big">This made me realize that these experiences were not isolated. They were <mark>more common than I had initially imagined</mark>, yet often went unacknowledged. I wanted future sophomores to recognize that the uncertainty and pressure they might experience were not theirs to navigate alone.</p></div>
+
+<div class="os-box pink rv"><svg class="doodle float hide-sm" style="left:6%;top:-28px;width:56px;height:56px;animation-delay:-3s"><use href="#star"/></svg><svg class="doodle float hide-sm" style="right:7%;bottom:-32px;animation-delay:-1s"><use href="#cloud"/></svg><div class="os-two">
+<h2 data-i18n="os_h5">from sophomore experience to side note</h2>
+<div><p data-i18n="os_p8">But the more I thought about it, the more I realized that these conversations shouldn't stop at sophomore year. The pressure to keep up, the uncertainty about the future, and the experiences we hesitate to talk about aren't limited to one grade.</p>
+<p data-i18n="os_p9">That's how Side Note began to take shape: a space where I could continue exploring the things that often go unspoken throughout high school, through personal reflections, student perspectives, and helpful resources.</p></div>
+</div></div>
+
+<div class="os-note rv"><svg class="doodle float" style="position:static;display:block;margin:0 auto .6rem;width:64px;height:64px"><use href="#flower"/></svg><h2 data-i18n="os_h6">a note from me</h2>
+<p data-i18n="os_p10">I'm still figuring things out as I go, and I certainly don't have all the answers. But I hope Side Note can be a place where students recognize something familiar in what they read, feel comfortable sharing their own perspectives, and realize that some of the things they experience are more common than they think.</p>
+<a class="sub" href="/blog" data-i18n="os_blog">Explore the blog →</a></div>
+
+<div class="modal" id="survey" hidden role="dialog" aria-modal="true" aria-labelledby="sv-title"><div class="mpanel">
+<div class="mbar"><button type="button" class="mback" data-close data-i18n="os_back">← back to the story</button><button type="button" class="mx" data-close aria-label="Close">×</button></div>
+<h2 id="sv-title" data-i18n="os_sv">survey results</h2><div id="sv-body"></div></div></div>
+</div></div>
+<div class="page" data-page="resources" hidden><div class="wrap soonpage">
+<svg class="doodle float hide-sm" style="left:10%;top:3rem;width:70px;height:70px"><use href="#pencil"/></svg>
+<svg class="doodle float hide-sm" style="right:11%;top:5rem;width:80px;height:80px;animation-delay:-2s"><use href="#star"/></svg>
+<svg class="doodle float" style="position:static;display:block;margin:0 auto 1rem;width:96px;height:96px;animation-delay:-1s"><use href="#book"/></svg>
+<h1 class="rv" data-i18n="h_rs_h1">helpful <span>resources</span></h1>
+<div class="hand rv" data-i18n="sv_page_hand">coming soon</div>
+<p class="rv" data-i18n="rs_page_p">This page is still a work in progress. Helpful resources, tools and recommendations for students will live here. Check back soon.</p>
+<a class="btn rv" href="/" data-i18n="sv_page_back">← back home</a>
+</div></div>
+<div class="page" data-page="student-voices" hidden><div class="wrap soonpage">
+<svg class="doodle float hide-sm" style="left:10%;top:3rem;width:70px;height:70px"><use href="#star"/></svg>
+<svg class="doodle float hide-sm" style="right:11%;top:5rem;width:80px;height:80px;animation-delay:-2s"><use href="#flower"/></svg>
+<svg class="doodle float" style="position:static;display:block;margin:0 auto 1rem;width:96px;height:96px;animation-delay:-1s"><use href="#bubble"/></svg>
+<h1 class="rv" data-i18n="h_sv_h1">student <span>voices</span></h1>
+<div class="hand rv" data-i18n="sv_page_hand">coming soon</div>
+<p class="rv" data-i18n="sv_page_p">This page is still a work in progress. Real stories and different perspectives from students will live here. Check back soon.</p>
+<a class="btn rv" href="/" data-i18n="sv_page_back">← back home</a>
+</div></div>
+</main>
+<footer>xo, gigi · side note</footer>
+
+<script>
+(function(){var els=document.querySelectorAll('.rv');
+if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('on')});return}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.12});
+els.forEach(function(e,i){e.style.transitionDelay=(i%4)*70+'ms';io.observe(e)})})();
+</script>
+<div id="dog" aria-hidden="true"><img alt="" src="/assets/img/dog-cursor.webp"></div>
+<script>
+(function(){if(!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+var d=document.getElementById('dog'),root=document.documentElement,lx=0,on=0,tw,ts,
+L='a,button,[role=button],.card,.chip,.btn,summary,label,select',T='p,h1,h2,h3,li,small,input,textarea,blockquote';
+function z(){ts=clearTimeout(ts);ts=setTimeout(function(){d.classList.add('sleep');d.classList.remove('walk')},2500)}
+addEventListener('mousemove',function(e){
+if(!on){on=1;root.classList.add('dogcursor');d.classList.add('on')}
+d.style.transform='translate3d('+e.clientX+'px,'+e.clientY+'px,0)';
+var dx=e.clientX-lx;if(Math.abs(dx)>2){d.classList.toggle('flip',dx>0);lx=e.clientX}
+var l=!!e.target.closest(L);d.classList.toggle('link',l);d.classList.toggle('text',!l&&!!e.target.closest(T));
+d.classList.remove('sleep');d.classList.add('walk');clearTimeout(tw);tw=setTimeout(function(){d.classList.remove('walk')},140);z()},{passive:true});
+addEventListener('mousedown',function(){d.classList.add('down')});
+addEventListener('mouseup',function(){d.classList.remove('down')});
+document.addEventListener('mouseleave',function(){d.classList.remove('on')});
+document.addEventListener('mouseenter',function(){if(on)d.classList.add('on')});
+})();
+</script>
+<script>
+(function(){var P=document.querySelectorAll('.page'),N=document.querySelectorAll('.nav a'),
+M={'':'home','/':'home','/blog':'blog','/our-story':'our-story','/resources':'resources','/student-voices':'student-voices'},
+META={'home':['side note','side note \u2014 a personal space for high school students to share thoughts, experiences and conversations about growing up.'],
+'blog':['Blog \u2014 side note','Posts about school, pressure, comparison and the parts of high school that often go unspoken.'],
+'blog/grades-and-confidence':['Why Do Grades Affect My Confidence? \u2014 side note','On separating what you scored from what you are actually capable of.'],
+'blog/comparing-myself':['How Do I Stop Comparing Myself to Everyone Else? \u2014 side note','On measuring yourself against other people, and why it so rarely helps.'],
+'blog/small-decisions':['Why Do Small Decisions Sometimes Feel So Overwhelming? \u2014 side note','On wanting the best possible choice when there is not necessarily one.'],
+'blog/lonely-with-friends':['Can You Feel Lonely Even When You Are Surrounded by Friends? \u2014 side note','On feeling alone in a room full of people you actually like.'],
+'our-story':['Our Story \u2014 side note','How side note started, and what it is for.'],
+'resources':['Resources \u2014 side note','Reading, references and places to look when you need help.'],
+'student-voices':['Student Voices \u2014 side note','Experiences and perspectives shared by other students.']};
+function head(k,path){var m=META[k]||META.home,u=location.origin+path,
+d=document.querySelector('meta[name="description"]'),
+ot=document.querySelector('meta[property="og:title"]'),
+od=document.querySelector('meta[property="og:description"]'),
+c=document.querySelector('link[rel="canonical"]'),
+ou=document.querySelector('meta[property="og:url"]');
+document.title=m[0];
+if(d)d.setAttribute('content',m[1]);
+if(ot)ot.setAttribute('content',m[0]);
+if(od)od.setAttribute('content',m[1]);
+if(!c){c=document.createElement('link');c.setAttribute('rel','canonical');document.head.appendChild(c)}
+c.setAttribute('href',u);
+if(!ou){ou=document.createElement('meta');ou.setAttribute('property','og:url');document.head.appendChild(ou)}
+ou.setAttribute('content',u)}
+function go(){var h=location.pathname.replace(/\/+$/,''),k=M[h]||(h.indexOf('/blog/')==0?(document.querySelector('.page[data-page="'+h.slice(1)+'"]')?h.slice(1):'article'):'home'),nk=(k==='article'||k.indexOf('blog/')==0)?'blog':k;
+P.forEach(function(p){p.hidden=p.dataset.page!==k});
+N.forEach(function(a){a.toggleAttribute('aria-current',a.dataset.p===nk)});
+head(k,h||'/');scrollTo(0,0)}
+function fromHash(){if(location.hash.indexOf('#/')!==0)return false;history.replaceState(null,'',location.hash.slice(1)||'/');return true}
+document.addEventListener('click',function(e){
+if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+var a=e.target.closest&&e.target.closest('a[href^="/"]');
+if(!a||a.target||a.hasAttribute('download')||/\.[a-z0-9]+$/i.test(a.pathname))return;
+e.preventDefault();
+if(a.pathname!==location.pathname||location.hash)history.pushState(null,'',a.pathname);
+go()});
+addEventListener('popstate',go);
+addEventListener('hashchange',function(){if(fromHash())go()});
+fromHash();go()})();
+</script>
+<script>
+(function(){var B=document.querySelectorAll('[data-f]'),C=document.querySelectorAll('.card[data-c]');
+function f(v){B.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.f===v)});
+C.forEach(function(c){c.hidden=v!=='all'&&c.dataset.c!==v})}
+B.forEach(function(b){b.addEventListener('click',function(){var on=b.getAttribute('aria-pressed')==='true'&&b.dataset.f!=='all';f(on?'all':b.dataset.f);
+if(b.classList.contains('hc'))document.getElementById('posts').scrollIntoView({behavior:'smooth'})})});
+f('all')})();
+</script>
+<script>
+(function(){var D={"pt": {"nav_home": "Início", "nav_blog": "Blog", "nav_our-story": "Nossa História", "nav_resources": "Recursos", "nav_student-voices": "Vozes de Estudantes", "intro": "O ensino médio traz muita coisa sobre a qual ninguém realmente fala. Este site pretende ser um espaço onde escrevo sobre as dificuldades, as pressões e as experiências de ser estudante do ensino médio, além de compartilhar diferentes perspectivas de estudantes e recursos úteis. Da vida acadêmica e da motivação à comparação, à incerteza e a tudo o que existe entre isso, o objetivo é chamar a atenção para os aspectos do ensino médio que muitas vezes ficam sem ser ditos e lembrar aos estudantes que essas experiências são mais comuns do que parecem.", "alone": "Você não está só.", "posts": "últimos posts", "c_all": "Todos", "c_school": "Escola e Vida", "c_rel": "Relacionamentos", "c_grow": "Crescer", "t1": "Por que as notas afetam minha confiança?", "q1": "“É mais difícil separar meu desempenho da minha capacidade quando sei que me esforcei de verdade.”", "t2": "Como parar de me comparar com todo mundo?", "q2": "“Você pode estar perfeitamente feliz com as suas conquistas até descobrir o que outra pessoa realizou.”", "t3": "Por que decisões pequenas às vezes parecem tão esmagadoras?", "q3": "“Queremos fazer a melhor escolha possível, mesmo quando talvez nem exista uma.”", "t4": "É possível se sentir sozinho mesmo cercado de amigos?", "q4": "“Você pode passar um dia inteiro rindo com seus amigos e ainda assim voltar para casa se sentindo sozinho.”", "began_h": "como tudo começou", "began_p": "O que começou como um pequeno projeto sobre a experiência negligenciada do segundo ano do ensino médio acabou se transformando em algo maior: um espaço para as conversas que não temos o suficiente no ensino médio.", "began_b": "Leia a história completa →", "r_h": "Recursos", "r_p": "Ferramentas, guias e links úteis.", "v_h": "Vozes de Estudantes", "v_p": "Histórias reais e perspectivas diferentes.", "h_os_h1": "nossa <span>história</span>", "os_hand": "onde tudo começou", "os_intro": "O Side Note começou com um artigo de jornalismo escolar sobre a experiência negligenciada do segundo ano (sophomore year). Com o tempo, tornou-se um espaço para conversas sobre as experiências do ensino médio.", "os_note": "as coisas de que muitas vezes não se fala", "os_h2": "tudo começou com um artigo", "os_p1": "Tudo começou com um artigo que escrevi para o clube de jornalismo da minha escola, o The Talon, intitulado ‘The Moment Sophomores Stop Feeling Invisible’ (‘O momento em que os alunos do segundo ano deixam de se sentir invisíveis’).", "os_p2": "O artigo explorava como o segundo ano costuma ser ignorado, bem entre a empolgação do primeiro ano e as responsabilidades crescentes dos dois últimos anos. Ainda assim, quando começa a escolha das disciplinas do IB, os alunos do segundo ano de repente enfrentam a pressão de tomar decisões que parecem determinar sua vida acadêmica e seu futuro com apenas 15 ou 16 anos.", "os_p3": "A partir das minhas próprias experiências e observações, explorei a incerteza, os conselhos conflitantes e as expectativas que surgem ao escolher entre interesses pessoais e requisitos futuros.", "os_p4": "No fim das contas, o artigo mostrou como os alunos do segundo ano passam boa parte do ano se sentindo invisíveis, só para de repente enfrentarem expectativas sobre o futuro quando muitos ainda estão descobrindo quem são e o que querem seguir.", "os_clip_k": "Artigo em destaque · The Talon", "os_clip_p": "Um texto para o clube de jornalismo da escola sobre como o segundo ano é ignorado, até que a escolha das disciplinas do IB coloca decisões importantes na mesa.", "os_cta": "Ler o artigo original ↗", "os_h3": "de um artigo a uma pesquisa", "os_p5": "Depois que o artigo foi publicado, recebi respostas de estudantes, de professores e até de alguém da orientação emocional da escola, que contaram o quanto o artigo ressoou com eles. Muitos disseram que ele refletia experiências que tinham presenciado ou vivido pessoalmente, e isso me fez perceber que esses sentimentos iam além da minha própria perspectiva.", "os_p6": "Essas respostas me incentivaram a explorar o tema mais a fundo. Em abril do meu segundo ano, fiz uma pesquisa com mais de 30% da minha série, perguntando aos estudantes sobre suas experiências com pressão acadêmica, motivação, confiança e os desafios de se preparar para os anos seguintes.", "os_btn": "Explorar os resultados da pesquisa →", "os_real_h": "o que percebi", "os_p7": "Os resultados mostraram que muitos estudantes enfrentavam dificuldades parecidas, mesmo que raramente falassem sobre elas abertamente.", "h_os_big": "Isso me fez perceber que essas experiências não eram isoladas. Elas eram <mark>mais comuns do que eu havia imaginado inicialmente</mark>, mas muitas vezes passavam despercebidas. Eu queria que os futuros alunos do segundo ano soubessem que a incerteza e a pressão que poderiam sentir não precisavam ser enfrentadas sozinhos.", "os_h5": "do projeto do segundo ano ao side note", "os_p8": "Mas, quanto mais eu pensava, mais percebia que essas conversas não deveriam parar no segundo ano. A pressão para acompanhar o ritmo, a incerteza sobre o futuro e as experiências sobre as quais hesitamos em falar não se limitam a uma única série.", "os_p9": "Foi assim que o Side Note começou a ganhar forma: um espaço onde eu poderia continuar explorando as coisas que muitas vezes ficam sem ser ditas ao longo de todo o ensino médio, por meio de reflexões pessoais, perspectivas de estudantes e recursos úteis.", "os_h6": "um recado meu", "os_p10": "Ainda estou descobrindo as coisas pelo caminho e com certeza não tenho todas as respostas. Mas espero que o Side Note seja um lugar onde estudantes reconheçam algo familiar no que leem, se sintam à vontade para compartilhar suas próprias perspectivas e percebam que algumas das coisas que vivem são mais comuns do que imaginam.", "os_blog": "Explorar o blog →", "os_back": "← voltar à história", "os_sv": "resultados da pesquisa", "sv_soon": "resultados da pesquisa em breve", "sv_soon_p": "As descobertas ficarão aqui. Volte em breve.", "h_sv_h1": "vozes de <span>estudantes</span>", "h_rs_h1": "<span>recursos</span> úteis", "rs_page_p": "Esta página ainda está em construção. Recursos úteis, ferramentas e indicações para estudantes vão morar aqui. Volte em breve.", "sv_page_hand": "em breve", "sv_page_p": "Esta página ainda está em construção. Histórias reais e perspectivas diferentes de estudantes vão morar aqui. Volte em breve.", "sv_page_back": "← voltar ao início"}, "zh": {"nav_home": "首页", "nav_blog": "博客", "nav_our-story": "我们的故事", "nav_resources": "资源", "nav_student-voices": "学生心声", "intro": "高中生活里有很多事情，几乎没有人真正谈起。这个网站希望成为一个空间，让我写下作为高中生所经历的挣扎、压力和种种体验，同时分享不同学生的视角和实用的资源。从学业和动力，到比较、不确定感，以及介于其间的一切，我的目标是让大家关注高中生活中那些常常没有被说出口的部分，并提醒同学们：这些经历远比看起来更普遍。", "alone": "你并不孤单。", "posts": "最新文章", "c_all": "全部", "c_school": "学校与生活", "c_rel": "人际关系", "c_grow": "成长", "t1": "为什么成绩会影响我的自信？", "q1": "“当我知道自己确实努力过时，就更难把我的表现和我的能力区分开来。”", "t2": "我该如何不再和所有人比较？", "q2": "“你本可以对自己的成就感到十分满意，直到你得知别人取得了什么成就。”", "t3": "为什么有时候很小的决定也让人不知所措？", "q3": "“我们想做出最好的选择，即使并不一定存在这样的选择。”", "t4": "身边都是朋友，也会感到孤独吗？", "q4": "“你可以和朋友们开怀大笑一整天，回到家却依然觉得孤独。”", "began_h": "故事的开始", "began_p": "这个项目最初只是关于被忽视的高二经历的一个小计划，后来逐渐成长为更大的东西：一个容纳我们在高中里谈得太少的那些对话的空间。", "began_b": "阅读完整故事 →", "r_h": "资源", "r_p": "工具、指南和实用链接。", "v_h": "学生心声", "v_p": "真实的故事与不同的视角。", "h_os_h1": "我们的<span>故事</span>", "os_hand": "一切从这里开始", "os_intro": "Side Note 起源于一篇关于被忽视的高二（sophomore year）生活的校园新闻稿。后来，它逐渐成为一个讨论高中经历的空间。", "os_note": "那些常常没有被说出口的事", "os_h2": "一切始于一篇文章", "os_p1": "一切始于我为学校新闻社 The Talon 写的一篇文章，标题是《The Moment Sophomores Stop Feeling Invisible》（意为“高二学生不再被忽视的时刻”）。", "os_p2": "这篇文章探讨了高二为何常常被忽视：它夹在高一的兴奋期与最后两年日益增加的责任之间。然而，当 IB 选课开始时，高二的学生突然要面对各种压力，做出似乎会决定自己学业和未来的选择，而他们才十五六岁。", "os_p3": "我结合自己的经历和观察，探讨了在个人兴趣与未来要求之间做选择时，所带来的不确定感、相互矛盾的建议和各种期待。", "os_p4": "最终，这篇文章指出，高二的学生一整年里常常觉得自己不被看见，却突然要面对关于未来的期待，而许多人此时还在摸索自己是谁、想追求什么。", "os_clip_k": "精选文章 · The Talon", "os_clip_p": "一篇写给学校新闻社的文章，讲述高二为何被忽视，直到 IB 选课突然把重大决定摆到面前。", "os_cta": "阅读原文 ↗", "os_h3": "从一篇文章到一项调查", "os_p5": "文章发表后，我收到了学生、老师，甚至学校情绪辅导老师的回应，他们都说这篇文章引起了强烈的共鸣。许多人表示，文章写出了他们亲眼见过或亲身经历过的事，这让我意识到，这些感受并不只属于我一个人。", "os_p6": "他们的回应鼓励我进一步探索这个话题。高二那年的四月，我对我们年级超过 30% 的同学做了一项调查，询问他们在学业压力、动力、自信，以及为未来几年做准备时遇到的挑战方面的经历。", "os_btn": "查看调查结果 →", "os_real_h": "我的领悟", "os_p7": "调查结果显示，许多同学有着相似的困扰，只是他们很少公开谈起。", "h_os_big": "这让我意识到，这些经历并不是个例。它们<mark>比我最初想象的更普遍</mark>，却常常没有被承认。我希望未来的高二学生知道：他们可能感受到的不确定和压力，并不需要独自面对。", "os_h5": "从高二计划到 side note", "os_p8": "但我越想越觉得，这些对话不应该止步于高二。要跟上节奏的压力、对未来的不确定，以及我们不愿开口谈论的种种经历，并不只属于某一个年级。", "os_p9": "Side Note 就这样慢慢成形了：这是一个让我能继续探讨整个高中阶段那些常常没有被说出口的事情的空间，内容包括个人反思、学生视角和实用的资源。", "os_h6": "我想说的话", "os_p10": "我还在边走边摸索，当然也没有所有的答案。但我希望 Side Note 能成为这样一个地方：让同学们在阅读时认出熟悉的东西，放心地分享自己的想法，并意识到自己经历的一些事其实比想象中更普遍。", "os_blog": "探索博客 →", "os_back": "← 返回故事", "os_sv": "调查结果", "sv_soon": "调查结果即将公布", "sv_soon_p": "调查发现将会展示在这里，敬请期待。", "h_sv_h1": "学生<span>心声</span>", "h_rs_h1": "实用<span>资源</span>", "rs_page_p": "这个页面还在制作中。为同学们准备的实用资源、工具和推荐将会出现在这里，敬请期待。", "sv_page_hand": "敬请期待", "sv_page_p": "这个页面还在制作中。来自同学们的真实故事和不同视角将会出现在这里，敬请期待。", "sv_page_back": "← 返回首页"}},btns=document.querySelectorAll('[data-l]'),cur='en';
+function set(l){cur=l;document.documentElement.lang=l;
+document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.dataset.i18n;if(e.dataset.en===undefined)e.dataset.en=e.innerHTML;var t=l!=='en'&&D[l][k];
+if(!t)e.innerHTML=e.dataset.en;else if(k.indexOf('h_')===0)e.innerHTML=t;else e.textContent=t});
+btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===l)});
+try{localStorage.setItem('lang',l)}catch(x){}}
+window.i18nRefresh=function(){set(cur)};
+btns.forEach(function(b){b.addEventListener('click',function(){set(b.dataset.l)})});
+var s='en';try{s=localStorage.getItem('lang')||'en'}catch(x){}
+set(s==='en'||D[s]?s:'en')})();
+</script>
+<script>
+(function(){var N=38,Q=[{"y": 26, "n": 12, "q": {"en": "Do you feel less motivated academically this year compared to freshman year?", "pt": "Você se sente menos motivado academicamente este ano em comparação com o primeiro ano?", "zh": "与高一相比，你今年在学业上的动力是否减弱了？"}}, {"y": 31, "n": 7, "q": {"en": "Do you feel stressed about choosing your IB course?", "pt": "Você se sente estressado com a escolha dos seus cursos do IB?", "zh": "你对选择 IB 课程感到压力吗？"}}, {"y": 14, "n": 24, "q": {"en": "Do you feel prepared for the academic expectations of junior year?", "pt": "Você se sente preparado para as expectativas acadêmicas do terceiro ano do ensino médio?", "zh": "你觉得自己为高三的学业要求做好准备了吗？"}}, {"y": 31, "n": 7, "q": {"en": "Do you think sophomore year is treated as a \"break year\" before IB starts?", "pt": "Você acha que o segundo ano é tratado como um “ano de folga” antes do início do IB?", "zh": "你认为高二被当作 IB 开始之前的“休息年”吗？"}}, {"y": 28, "n": 10, "q": {"en": "Do grades negatively affect your confidence or mindset?", "pt": "As notas afetam negativamente a sua confiança ou mentalidade?", "zh": "成绩是否对你的自信或心态产生负面影响？"}}, {"y": 15, "n": 23, "q": {"en": "Do you feel emotionally supported by the school?", "pt": "Você se sente emocionalmente apoiado pela escola?", "zh": "你觉得学校在情感上给予了你支持吗？"}}, {"y": 37, "n": 1, "q": {"en": "Would you benefit from guidance or mentorship from older students?", "pt": "Você se beneficiaria de orientação ou mentoria de alunos mais velhos?", "zh": "你会从学长学姐的指导或辅导中受益吗？"}}];
+var T={en:{r:'38 responses',y:'Yes',n:'No',h:'38 students responded, over 30% of the sophomore class',cap:function(c,w){return c+' of 38 students said '+w.toLowerCase()+'.'}},
+pt:{r:'38 respostas',y:'Sim',n:'Não',h:'38 estudantes responderam, mais de 30% da turma do segundo ano',cap:function(c,w){return c+' de 38 estudantes responderam '+w.toLowerCase()+'.'}},
+zh:{r:'38 份回答',y:'是',n:'否',h:'共有 38 位同学参与，占高二年级的 30% 以上',cap:function(c,w){return '38 位同学中有 '+c+' 位回答“'+w+'”。'}}};
+var DOOD=['star','flower','cloud','star','flower','cloud','star'],CARD=['pink','blue','green'],R=66,C=2*Math.PI*R,GAP=2.2;
+var m=document.getElementById('survey'),o=document.getElementById('sv-open'),b=document.getElementById('sv-body'),panel=m.querySelector('.mpanel');
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,io=null;
+function pct(v){return (v/N*100).toFixed(1)}
+function seg(len,start,col,k){return '<circle class="seg" data-k="'+k+'" data-len="'+len+'" data-off="'+start+'" tabindex="0" cx="100" cy="100" r="'+R+'" fill="none" stroke="'+col+'" stroke-width="36" stroke-dasharray="0 '+C+'" stroke-dashoffset="'+(-start)+'"/>'}
+function render(){var l=document.documentElement.lang;l=T[l]?l:'en';var t=T[l];
+if(io)io.disconnect();
+var h='<p class="sv-head">'+t.h+'</p><div class="sv-grid">';
+Q.forEach(function(q,i){var ly=C*q.y/N,ln=C*q.n/N,ymaj=q.y>=q.n,mc=ymaj?q.y:q.n,mw=ymaj?t.y:t.n;
+h+='<article class="qc '+CARD[i%3]+' rv on" data-i="'+i+'"><svg class="doodle float" style="animation-delay:-'+i+'s"><use href="#'+DOOD[i]+'"/></svg>'
++'<h3>'+q.q[l]+'</h3><small>'+t.r+'</small>'
++'<div class="qrow"><svg class="pie" viewBox="0 0 200 200" role="img" aria-label="'+q.q[l]+': '+t.y+' '+pct(q.y)+'%, '+t.n+' '+pct(q.n)+'%"><defs><filter id="wb'+i+'" filterUnits="userSpaceOnUse" x="-20" y="-20" width="240" height="240"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="4"/></filter></defs><g filter="url(#wb'+i+')"><g transform="rotate(-90 100 100)"><circle cx="100" cy="100" r="'+R+'" fill="none" stroke="#353535" stroke-width="43"/>'
++seg(ly,0,'#FFFEFB','y')+seg(ln,ly,'#F7EBAE','n')+'</g></g><text class="pc" x="100" y="102" text-anchor="middle" data-v="'+pct(q.y)+'">0%</text><text class="pl" x="100" y="124" text-anchor="middle">'+t.y+'</text></svg>'
++'<ul class="leg"><li><i style="background:#FFFEFB"></i>'+t.y+' · '+q.y+' ('+pct(q.y)+'%)</li><li><i style="background:#F7EBAE"></i>'+t.n+' · '+q.n+' ('+pct(q.n)+'%)</li></ul></div>'
++'<p class="cap">'+t.cap(mc,mw)+'</p></article>'});
+b.innerHTML=h+'</div>';
+b.querySelectorAll('.qc').forEach(function(c){var q=Q[+c.dataset.i],pc=c.querySelector('.pc'),pl=c.querySelector('.pl');
+function show(k){var yes=k==='y';pc.textContent=pct(yes?q.y:q.n)+'%';pl.textContent=yes?t.y:t.n;pc.dataset.shown=1}
+c.querySelectorAll('.seg').forEach(function(g){['mouseenter','focus'].forEach(function(ev){g.addEventListener(ev,function(){show(g.dataset.k)})});
+['mouseleave','blur'].forEach(function(ev){g.addEventListener(ev,function(){show('y')})})})});
+function play(c){if(c.dataset.p)return;c.dataset.p=1;var pc=c.querySelector('.pc'),end=parseFloat(pc.dataset.v);
+c.querySelectorAll('.seg').forEach(function(g,k){var ln=+g.dataset.len,of=+g.dataset.off;
+if(reduce){g.style.transition='none'}else g.style.transitionDelay=(k*0.35)+'s';
+g.style.strokeDasharray=Math.max(0,ln-GAP)+' '+(C-ln+GAP)});
+if(reduce){pc.textContent=end.toFixed(1)+'%';return}
+var t0=null;(function tick(ts){if(t0===null)t0=ts;var p=Math.min(1,(ts-t0)/1100);if(!pc.dataset.shown)pc.textContent=(end*(1-Math.pow(1-p,3))).toFixed(1)+'%';if(p<1)requestAnimationFrame(tick);else if(!pc.dataset.shown)pc.textContent=end.toFixed(1)+'%'})(performance.now())}
+var cards=b.querySelectorAll('.qc');
+if('IntersectionObserver' in window){io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){play(e.target);io.unobserve(e.target)}})},{root:panel,threshold:.35});cards.forEach(function(c){io.observe(c)})}else cards.forEach(play)}
+render();
+new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+function open(){render();m.hidden=false;document.body.style.overflow='hidden';panel.scrollTop=0;m.querySelector('[data-close]').focus()}
+function close(){m.hidden=true;document.body.style.overflow='';o.focus()}
+o.addEventListener('click',open);
+m.addEventListener('click',function(e){if(e.target===m||e.target.hasAttribute('data-close'))close()});
+addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden)close()});
+addEventListener('hashchange',function(){if(!m.hidden)close()});
+})();
+</script>
+<aside id="note" hidden aria-labelledby="note-t">
+<button class="nx" id="note-x" type="button" aria-label="Dismiss note">✕</button>
+<h2 id="note-t">a note before you explore</h2>
+<p id="note-p1">Side Note is a personal space for sharing thoughts and experiences about growing up. The articles are meant to help you feel understood, not to provide professional advice or replace mental health support.</p>
+<p id="note-p2">If you're struggling with your mental health, please consider reaching out to a trusted adult, school counselor, or qualified mental health professional.</p></aside>
+<script>
+(function(){var K='sidenote_note_dismissed',n=document.getElementById('note'),x=document.getElementById('note-x'),gone=false;
+try{if(localStorage.getItem(K))return}catch(e){}
+var T={en:['a note before you explore',"Side Note is a personal space for sharing thoughts and experiences about growing up. The articles are meant to help you feel understood, not to provide professional advice or replace mental health support.","If you're struggling with your mental health, please consider reaching out to a trusted adult, school counselor, or qualified mental health professional.",'Dismiss note'],
+pt:['uma nota antes de explorar','O Side Note é um espaço pessoal para compartilhar pensamentos e experiências sobre crescer. Os artigos existem para ajudar você a se sentir compreendido(a), e não para oferecer aconselhamento profissional nem substituir o apoio em saúde mental.','Se você está passando por dificuldades com a sua saúde mental, considere procurar um adulto de confiança, o orientador da escola ou um profissional de saúde mental qualificado.','Fechar nota'],
+zh:['在你开始探索之前','Side Note 是一个个人空间，用来分享关于成长的想法和经历。这些文章是为了让你感到被理解，并不能提供专业建议，也不能代替心理健康支持。','如果你正在为心理健康而苦恼，请考虑联系值得信任的成年人、学校辅导员或合格的心理健康专业人士。','关闭提示']};
+function tr(){var t=T[document.documentElement.lang]||T.en;['note-t','note-p1','note-p2'].forEach(function(id,i){document.getElementById(id).textContent=t[i]});x.setAttribute('aria-label',t[3])}
+function home(){var h=location.hash.replace(/^#\/?/,'');return h===''}
+function sync(){n.hidden=gone||!home()}
+x.addEventListener('click',function(){gone=true;n.hidden=true;try{localStorage.setItem(K,'1')}catch(e){}});
+new MutationObserver(tr).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+addEventListener('hashchange',sync);
+tr();setTimeout(sync,400);
+})();
+</script>
+<script>
+(function(){var L={en:'References',pt:'Referências',zh:'参考文献'};var B={en:'← Back to Blogs',pt:'← Voltar aos Blogs',zh:'← 返回博客'};
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.refs-btn');if(!b)return;
+var p=document.getElementById(b.getAttribute('aria-controls')),o=b.getAttribute('aria-expanded')!=='true';
+b.setAttribute('aria-expanded',o);p.classList.toggle('open',o)});
+function tr(){var t=L[document.documentElement.lang]||L.en;document.querySelectorAll('.refs-l').forEach(function(x){x.textContent=t});var u=B[document.documentElement.lang]||B.en;document.querySelectorAll('.back-l').forEach(function(x){x.textContent=u})}
+new MutationObserver(tr).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});tr();
+})();
+</script>
+<script>
+(function(){var AT={"grades-and-confidence": {"pt": ["Toda hora ouvimos que as notas não nos definem. É um pensamento reconfortante — até o dia em que recebemos uma nota de que não gostamos.", "Sei muito bem que uma nota decepcionante não me faz burra. Mesmo assim, quando vejo um resultado abaixo do que eu esperava, nem sempre o meu primeiro pensamento é que tive dificuldade na prova. Talvez eu simplesmente não seja tão capaz quanto achava.", "Talvez as notas pesem tanto porque parecem objetivas. Esforço é difícil de medir. Evolução e potencial também. Já um número no topo da folha parece definitivo. Ele nos dá algo concreto para usar como régua, mesmo quando não conta a história toda.", "E, sem querer enfeitar a verdade, elas medem, sim, alguma coisa. Podem refletir o quanto entendemos determinada matéria ou como nos saímos numa avaliação. O problema começa quando deixamos que elas meçam todo o resto também, como o nosso potencial ou até o nosso valor.", "Psicólogos descrevem algo parecido com o conceito de autovalor contingente (contingent self-worth). Isso acontece quando o senso de valor pessoal de alguém depende do sucesso ou da validação em uma área específica, como a vida acadêmica (Crocker & Wolfe, 2001).", "Quando a conquista vira uma das principais formas de nos convencermos de que somos capazes, uma nota boa parece uma confirmação. Uma nota ruim pode parecer o contrário.", "Ironicamente, uma nota decepcionante pode doer ainda mais quando nos esforçamos de verdade por ela.", "Se eu mal estudei, posso culpar a falta de preparo. Existe uma explicação que protege a minha confiança. Mas quando passei horas estudando e mesmo assim não tirei o resultado que esperava, essa explicação desaparece. É mais difícil separar meu desempenho da minha capacidade quando sei que me esforcei de verdade.", "Também há algo de injusto em quanto tempo as notas decepcionantes parecem ficar com a gente.", "Uma nota boa me deixa feliz, mas a satisfação nem sempre dura muito. Eu aceito e, com o tempo, sigo em frente. Já uma nota decepcionante pode ficar comigo por muito mais tempo. Fico repassando os erros que cometi e não consigo tirar aquilo da cabeça. Às vezes, um único resultado ruim parece pesar mais do que vários bons.", "Psicólogos chamam isso de viés de negatividade (negativity bias): experiências ou informações negativas podem ter um impacto mais forte em nós do que as positivas (Baumeister et al., 2001).", "E talvez seja por isso que um único número consegue mudar o que sentimos sobre uma matéria inteira, mesmo quando os resultados anteriores dizem o contrário.", "O que acontece depois da decepção?", "É fácil dizer para alguém não levar uma nota para o lado pessoal. É bem mais difícil seguir esse conselho quando somos nós que estamos olhando para o resultado.", "Em um estudo de 2008, Nussbaum e Dweck descobriram que pessoas que acreditavam que a inteligência não muda eram mais propensas a proteger a própria confiança depois de um fracasso comparando-se com quem foi pior. Já quem acreditava que podia melhorar estava mais disposto a olhar para os próprios erros e aprender com eles.", "Mas saber que a inteligência pode se desenvolver não torna automaticamente mais fácil aceitar uma nota decepcionante.", "Nem sempre conseguimos controlar a nossa reação imediata a um resultado. O que podemos decidir é o que fazemos depois. Rever os erros, pedir feedback ou mudar a forma de se preparar talvez não apague a decepção, mas nos dá algo mais útil para fazer com ela.", "A pesquisa de Breines e Chen (2012) também mostrou que a autocompaixão pode estimular a vontade de melhorar. Em um dos experimentos, os participantes que foram levados a reagir ao fracasso com autocompaixão passaram mais tempo estudando para a prova seguinte.", "Essa descoberta questiona a ideia de que ser duro consigo mesmo é necessário para evoluir. Podemos levar nossos erros a sério sem transformar cada resultado decepcionante em mais um motivo para nos criticar.", "As notas importam. Elas podem afetar nossas oportunidades acadêmicas, e é razoável se importar com algo em que investimos tempo e esforço.", "Mas existe uma diferença entre reconhecer que uma nota importa e deixar que ela determine o que acreditamos sobre nós mesmos."], "zh": ["人们总是告诉我们，成绩并不能定义我们。这个想法让人安心——直到我们拿到一个不喜欢的分数。", "我很清楚，一次失望的成绩并不代表我笨。可不知为什么，看到比预期低的分数时，我的第一反应并不总是“这次考试我没考好”，而是“也许我根本没有自己以为的那么有能力”。", "也许成绩之所以对我们影响这么大，是因为它看起来很客观。努力很难量化，进步和潜力也是。但试卷顶端的一个数字却显得那么确定。它给了我们一个具体的标准来衡量自己，哪怕它并没有说明全部的事实。", "说实话，成绩确实能衡量一些东西。它可以反映我们对某些内容理解得如何，或者在一次测验中的表现。但问题在于，我们开始让它去衡量其他一切，比如我们的潜力，甚至我们的价值。", "心理学家用“条件式自我价值”（contingent self-worth）这个概念描述过类似的现象：当一个人的自我价值感取决于某个领域的成功或认可时，比如学业，就会出现这种情况（Crocker & Wolfe, 2001）。", "当成就成为我们向自己证明“我有能力”的主要方式之一时，一个好成绩就像是一种确认，而一个差成绩则可能像是相反的判决。", "讽刺的是，当我们真的为一次考试努力过，失望的成绩反而会更伤人。", "如果我几乎没怎么复习，我可以把原因归咎于准备不足。这是一个能保护我自信心的解释。但当我花了好几个小时复习，却还是没拿到期待的结果，这个解释就不存在了。当我知道自己确实努力过，就更难把“表现”和“能力”分开。", "还有一点不太公平：失望的成绩似乎会在我们心里停留很久。", "一个好成绩会让我开心，但这种满足感往往持续不了多久。我接受它，然后慢慢翻篇。可一个失望的成绩却会在我心里留很久。我会一遍遍回想自己犯的错误，怎么也没办法不去想。有时候，一次失败的结果似乎比好几次好成绩都更有分量。", "心理学家把这叫作“负面偏差”（negativity bias），也就是说，负面的经历或信息对我们的影响往往比正面的更强（Baumeister et al., 2001）。", "也许这也是为什么，一个数字就能改变我们对整门学科的感受，哪怕我们之前的成绩明明说明了相反的事。", "失望之后会发生什么？", "要劝别人“别把成绩看得太重”很容易，可当你自己盯着那个结果时，要听进这句话就难多了。", "在2008年的一项研究中，Nussbaum 和 Dweck 发现，认为智力无法改变的人，在失败之后更倾向于通过和表现更差的人比较来保护自己的自信。而相信自己可以进步的人，则更愿意正视自己的错误，并从中学习。", "但是，知道智力可以发展，并不会自动让失望的成绩变得更容易接受。", "我们没办法总是控制自己对结果的第一反应，但可以决定之后怎么做。回顾错误、向老师请教，或者调整备考方式，也许不能抹去失望，但能让我们用这份失望做一些更有用的事。", "Breines 和 Chen（2012）的研究还发现，自我关怀可以激发自我提升的动力。在一项实验中，被引导以自我关怀的方式面对失败的参与者，在准备下一次测验时花了更多的时间学习。", "这个发现挑战了一种想法，即对自己严苛是进步的必要条件。我们可以认真对待自己的错误，而不必把每一次失望的结果都变成再次批评自己的理由。", "成绩是重要的。它会影响我们的升学机会，在乎自己投入了时间和精力的事情，也是很合理的。", "但是，承认一个成绩很重要，和让它决定我们如何看待自己，是两回事。"]}, "comparing-myself": {"pt": ["Você pode estar perfeitamente feliz com as suas conquistas até descobrir o que outra pessoa conquistou.", "Talvez você estivesse orgulhoso da nota na prova até ouvir a do seu amigo. Ou se sentisse bem com as suas atividades extracurriculares até ver quanta coisa outra pessoa fazia. De repente, algo que cinco minutos atrás parecia ótimo já não impressiona tanto.", "E é isso que acho tão frustrante na comparação. Nada nas nossas conquistas mudou de verdade. Só encontramos outra pessoa para medi-las.", "O psicólogo Leon Festinger explorou essa tendência na Teoria da Comparação Social (1954). Ele sugeriu que as pessoas naturalmente se comparam com os outros para avaliar suas habilidades e opiniões, principalmente quando não existe uma forma clara de medi-las (Festinger, 1954).", "Os psicólogos também diferenciam a comparação social ascendente, quando nos comparamos com quem achamos que está melhor, da comparação social descendente, quando nos comparamos com quem achamos que está pior (Wills, 1981; Wood, 1989).", "Comparar-se nem sempre é ruim. Ver alguém ter sucesso pode nos motivar a nos esforçar mais ou a tentar algo novo. Mas também pode nos deixar em dúvida se estamos fazendo o suficiente, mesmo quando estávamos totalmente contentes com o nosso progresso antes.", "E as redes sociais nos dão muitas oportunidades para duvidar.", "Você provavelmente já viu contas no Instagram que divulgam as aprovações de estudantes em universidades. A minha escola também tem uma, e eu gosto de verdade de ver as pessoas entrando nas universidades pelas quais tanto se esforçaram.", "Mas é estranho ficar rolando o feed vendo aprovação atrás de aprovação, principalmente de universidades de prestígio. Você pode nem estar se candidatando ainda, mas de repente começa a se perguntar se está fazendo o bastante para preparar o seu próprio futuro.", "Não há nada de errado em comemorar essas conquistas. Mas as publicações mostram só uma parte da história. Vemos onde os estudantes foram aprovados, sem necessariamente ver as recusas, as incertezas e o esforço que vieram antes.", "É fácil esquecer que estamos olhando para uma coleção de momentos de sucesso, e não para o retrato completo da experiência de cada pessoa.", "Existe outro conceito da psicologia chamado ignorância pluralística (pluralistic ignorance), que acontece quando as pessoas sentem ou acreditam em algo em particular, mas supõem, erroneamente, que os outros sentem diferente (Prentice & Miller, 1993).", "Por exemplo, podemos nos sentir inseguros quanto às nossas habilidades acadêmicas ou aos planos para o futuro, mas supor que todo mundo já tem tudo resolvido. Como as pessoas nem sempre falam abertamente das próprias dúvidas, é fácil confundir a confiança que mostram por fora com certeza por dentro.", "Claro, algumas pessoas realmente se sentem confiantes em relação ao futuro. Outras podem estar passando por coisas que nem imaginamos. De um jeito ou de outro, estamos nos julgando com base em informações que não temos por completo.", "Como voltar o foco para o nosso próprio progresso?", "Não estou convencida de que dê para parar de se comparar por completo. Mas podemos questionar o que essas comparações realmente nos dizem.", "Quando alguém tira uma nota mais alta ou é aprovado em uma universidade de prestígio, isso quer dizer que estamos ficando para trás? Será que temos mesmo os mesmos objetivos?", "Também ajuda olhar para o quanto já avançamos, em vez de só para o quanto alguém parece estar na frente. Talvez a gente tenha melhorado numa matéria em que tinha dificuldade, ou finalmente tenha tentado algo que vinha adiando. Essas conquistas também importam, mesmo que ninguém poste sobre elas.", "E, quando o assunto é rede social, vale lembrar o quão pouco sabemos a partir de uma única publicação. Um anúncio de aprovação diz onde alguém entrou. Não conta tudo o que a pessoa enfrentou para chegar lá.", "Da próxima vez que eu me pegar comparando meu progresso com o de outra pessoa, quero me perguntar se estou mesmo ficando para trás ou se só comecei a medir minhas conquistas com os objetivos dos outros."], "zh": ["你可能对自己的成就非常满意，直到你得知别人取得了什么成绩。", "也许你本来为自己的考试成绩感到骄傲，直到听说朋友考了多少分。或者你对自己参加的课外活动很满意，直到看到别人做了那么多事。突然间，五分钟前还让你满意的事情，似乎也没那么了不起了。", "这正是我觉得比较最令人沮丧的地方。我们自己的成就其实一点都没有变，只是我们找到了另一个人来对照。", "心理学家利昂·费斯汀格（Leon Festinger）在他的社会比较理论（1954）中探讨过这种倾向。他认为人们会很自然地与他人比较，来评估自己的能力和观点，尤其是在没有明确衡量标准的时候（Festinger, 1954）。", "心理学家还区分了向上的社会比较——和我们认为比自己好的人比较，以及向下的社会比较——和我们认为比自己差的人比较（Wills, 1981; Wood, 1989）。", "比较并不总是坏事。看到别人成功，可能会激励我们更努力，或者尝试新的东西。但它也可能让我们怀疑自己做得够不够，即使在此之前我们对自己的进步明明很满意。", "而社交媒体给了我们太多怀疑自己的机会。", "你大概见过那种发布学生大学录取结果的 Instagram 账号。我们学校也有一个，我是真心喜欢看到大家被自己努力争取的大学录取。", "但不停地刷一条又一条录取消息，尤其是名校的，感觉有点奇怪。你可能还没开始申请，却突然开始怀疑自己为未来做的准备够不够。", "庆祝这些成就当然没有错。但这些帖子只展示了故事的一部分。我们看到了学生被哪里录取，却不一定看到在这之前的拒绝、不确定和付出。", "我们很容易忘记，自己看到的只是一系列成功的瞬间，而不是每个人经历的全貌。", "心理学中还有一个概念叫“多数无知”（pluralistic ignorance），指的是人们私下里有某种感受或想法，却错误地以为别人的感受不同（Prentice & Miller, 1993）。", "比如，我们可能对自己的学业能力或未来计划感到不确定，却以为其他人都已经把一切想清楚了。由于大家并不总是坦率地谈论自己的疑虑，我们很容易把别人外表的自信，当成他们内心的笃定。", "当然，有些人确实对自己的未来很有把握，也有些人可能正在经历我们完全不知道的困难。不管怎样，我们都是在依据并不完整的信息来评判自己。", "我们该如何把注意力重新放回自己的进步上？", "我不认为我们能完全不再比较。但我们可以问问自己，这些比较到底说明了什么。", "当别人考得更高，或者被名校录取，这就意味着我们落后了吗？我们真的有相同的目标吗？", "回头看看自己已经走了多远，而不是只盯着别人似乎领先了多少，也会有帮助。也许我们在以前吃力的科目上进步了，或者终于尝试了一件一直拖着没做的事。这些成就同样重要，即使没有人为它们发帖。", "至于社交媒体，也值得记住：单看一条帖子，我们其实了解得很少。一则录取通知的分享，只告诉我们某个人去了哪里，却没有说他们为此经历了什么。", "下一次，当我发现自己又在拿自己的进度和别人比较时，我想问问自己：我是真的落后了，还是只是开始用别人的目标来衡量自己的成就？"]}, "small-decisions": {"pt": ["Já passei mais tempo decidindo como usar meu tempo livre do que aproveitando esse tempo de fato.", "Às vezes, até as menores decisões viram um debate inteiro na minha cabeça. Entro em mais uma atividade extracurricular? Estudo para a prova da semana que vem? Ou só descanso um pouco? Uma tarde comum vira mais uma coisa para planejar.", "Acho que parte do problema é que, nessa idade, somos o tempo todo incentivados a aproveitar ao máximo o nosso tempo, principalmente no ensino médio. Dizem para explorarmos nossos interesses, juntarmos experiências, nos desafiarmos e nos prepararmos para o futuro. E, embora não haja nada de errado com nada disso, isso pode fazer até decisões banais parecerem oportunidades que não podemos desperdiçar.", "Por exemplo, escolher uma atividade extracurricular não deveria ser tão estressante. Mas, de repente, me pego pensando se vou gostar de verdade, se isso poderia entrar nas minhas candidaturas, ou se eu deveria estar fazendo algo mais produtivo. Quando percebo, já não estou mais pensando no que eu realmente quero fazer. Estou pensando em tudo o que posso estar perdendo por escolher aquilo. É isso que torna certas decisões tão exaustivas.", "Queremos fazer a melhor escolha possível, mesmo quando talvez nem exista uma.", "Mas como vamos saber qual opção é a melhor se ainda não vivemos nenhuma das duas?", "Claro, algumas decisões merecem uma reflexão cuidadosa. Escolher as disciplinas do IB, por exemplo, pode influenciar o que vamos estudar depois. Mas decidir como passar uma tarde de sábado provavelmente não deveria exigir o mesmo nível de planejamento.", "Algo que tenho tentado lembrar é que nem toda escolha precisa ser a melhor possível. Às vezes, basta escolher uma coisa porque eu quero fazer.", "E, se eu acabar me arrependendo de uma decisão pequena, tudo bem também. Posso escolher outra coisa da próxima vez.", "Afinal, passar uma tarde inteira preocupada com como aproveitá-la provavelmente é a forma menos produtiva de passá-la."], "zh": ["我花在纠结怎么安排空闲时间上的时间，比真正享受它的时间还多。", "有时候，哪怕是最小的决定，也会在我脑海里变成一场辩论。要不要再加入一个课外活动？要不要为下周的考试复习？还是干脆休息一下？一个普通的下午，也成了又一件需要规划的事。", "我觉得问题的一部分在于，在这个年纪，尤其是在高中，我们总是被鼓励要充分利用时间。大人们让我们探索兴趣、积累经历、挑战自己、为未来做准备。这些本身都没有错，但它会让就连普通的决定，也像是我们不能浪费的机会。", "比如，选一个课外活动本不该这么有压力。可突然之间，我开始想：我是不是真的会喜欢它？它能不能写进我的申请材料里？还是我应该去做点更有成效的事？不知不觉中，我已经不再想自己真正想做什么，而是在想选了它之后，我可能会错过的一切。这正是某些决定如此耗神的原因。", "我们总想做出最好的选择，即使根本不一定存在所谓最好的选择。", "可是，两个选项我们都还没体验过，又怎么知道哪个最好呢？", "当然，有些决定确实值得认真考虑。比如选择 IB 科目，会影响我们之后学什么。但是，决定周六下午怎么过，大概不需要同样程度的规划。", "我一直在提醒自己：不是每个选择都必须是最好的那一个。有时候，只因为我想做，就足够了。", "而且，就算我对某个小决定感到后悔，也没关系。下一次我可以换一个。", "毕竟，花一整个下午去担心该怎么好好利用它，大概是度过这个下午最没有成效的方式了。"]}, "lonely-with-friends": {"pt": ["Você pode passar um dia inteiro rindo com os seus amigos e, mesmo assim, chegar em casa com uma sensação de solidão.", "É uma sensação estranha. Nada de ruim aconteceu. Você se divertiu e aproveitou de verdade. Mas, quando chega em casa, ainda existe essa sensação de desconexão que você não consegue explicar direito.", "E talvez a parte mais confusa seja que não há ninguém para culpar. Seus amigos não fizeram nada de errado, então por que você se sente assim?", "Acho que muitas vezes associamos a solidão a estar fisicamente só ou a não ter ninguém com quem passar o tempo. Mas ter companhia e se sentir conectado nem sempre são a mesma coisa. Às vezes, podemos valorizar as amizades que temos e, ainda assim, não ter certeza de onde nos encaixamos.", "Por exemplo, você pode se dar bem com pessoas de grupos de amigos diferentes e nunca se sentir totalmente parte de nenhum deles. Vocês gostam de passar o tempo juntos, mas fica aquela sensação persistente de estar um pouco fora do lugar. E o difícil é que ninguém precisa te excluir de propósito para esse sentimento existir.", "Outras vezes, a solidão pode ter muito pouco a ver com as pessoas ao seu redor. Você pode estar completamente feliz com as suas amizades e, mesmo assim, ter momentos de desconexão.", "Pode ser que não haja um motivo claro.", "Acho que é isso que torna a solidão tão difícil de admitir. Quando você já tem bons amigos, dizer que sente solidão pode soar quase como ingratidão, como se você estivesse sugerindo que as pessoas ao seu redor não são suficientes. Então você talvez guarde o sentimento só para si, ou até se pergunte se tem algum motivo para senti-lo.", "Mas sentir solidão não quer dizer que você não valoriza as pessoas da sua vida. E isso também não significa, automaticamente, que falta alguma coisa nas suas amizades.", "O que podemos fazer a respeito?", "Antes de decidir que alguma coisa precisa mudar, pode ajudar entender de onde vem esse sentimento.", "Se você costuma se sentir fora do lugar, talvez valha a pena conhecer pessoas com quem você tenha mais interesses em comum ou dedicar mais tempo às amizades que já tem.", "Mas, se você está feliz com os seus amigos e mesmo assim sente solidão de vez em quando, não precisa necessariamente mudar a sua vida social. Pode ajudar pensar se tem outra coisa te incomodando, ou se você simplesmente está tendo um dia difícil.", "E, às vezes, não vai haver uma explicação óbvia. Tudo bem também.", "Tendemos a esperar que boas amizades nos façam sentir conectados o tempo todo. Mas até as pessoas que mais nos deixam felizes não conseguem garantir que a solidão nunca vai aparecer.", "Ter pessoas que se importam com você é algo a se valorizar. Só não significa que você vai sentir essa conexão sempre, todos os dias."], "zh": ["你可以和朋友们笑着度过一整天，回到家却还是觉得孤单。", "这是一种奇怪的感觉。没有发生什么不好的事，你玩得很开心，也真心享受过。可一回到家，那种说不清的疏离感还是在那里。", "而最让人困惑的也许是，你没有谁可以怪。朋友们并没有做错什么，那你为什么会有这种感觉呢？", "我觉得我们常常把孤独和独自一人或没人陪伴联系在一起。但有人陪伴和感到被连接，并不一定是一回事。有时候，我们很珍惜拥有的友谊，却依然不确定自己属于哪里。", "比如，你可能和不同朋友圈的人都相处得不错，却从来没有完全融入其中任何一个。你们一起玩得很开心，但总有一种挥之不去的、有点格格不入的感觉。而难的是，不需要有人故意排挤你，这种感觉也会存在。", "还有些时候，孤独可能跟你身边的人几乎没有关系。你可能对自己的友谊完全满意，却还是会有觉得疏离的时刻。", "有时候，可能根本没有明确的原因。", "我觉得这就是孤独很难说出口的原因。当你已经有了很好的朋友，说自己觉得孤独几乎会显得不知感恩，好像在暗示身边的人还不够。于是你可能会把这种感觉藏在心里，甚至怀疑自己到底有没有理由这样觉得。", "但感到孤独，并不代表你不感激生活中的人。也不一定意味着你的友谊缺了什么。", "我们能做些什么？", "在决定需要改变什么之前，先弄清楚这种感觉从哪里来，也许会有帮助。", "如果你常常觉得格格不入，也许可以多认识一些兴趣更相投的人，或者花更多时间经营已有的友谊。", "但如果你对自己的朋友很满意，却偶尔还是会觉得孤独，你不一定需要改变自己的社交生活。想想是不是有别的事情一直在困扰你，或者你只是度过了难熬的一天，也许会有帮助。", "有时候，并不会有明显的解释。那也没关系。", "我们往往期待好的友谊能让我们时时刻刻都感到被连接。但即使是最让我们快乐的人，也无法保证我们永远不会感到孤独。", "身边有关心你的人，是值得珍惜的事。只是这并不意味着你每一天都会感到被连接。"]}};
+function apply(){var l=document.documentElement.lang;document.querySelectorAll('.page[data-page^="blog/"]').forEach(function(pg){var sl=pg.dataset.page.slice(5),T=AT[sl]&&AT[sl][l];pg.querySelectorAll('.bw-article > p, .bw-article > h4').forEach(function(el,i){if(el.dataset.en===undefined)el.dataset.en=el.textContent;el.textContent=(T&&T[i])||el.dataset.en})})}
+new MutationObserver(apply).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});apply();
+})();
+</script>
+</body>
+</html>
